@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'slug',
+        'visibility'
     ];
 
     /**
@@ -41,4 +43,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tweets() {
+        return $this->hasMany(Tweet::class);
+    }
+
+    public function replies() {
+        return $this->hasMany(Reply::class);
+    }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
+    public function notifications() {
+        return $this->hasMany(Notification::class, 'sender_id', 'receiver_id');
+    }
+
+    public function followers() {
+        return $this->hasMany(Follower::class, 'follower_id', 'followed_id');
+    }
 }
