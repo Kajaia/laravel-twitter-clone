@@ -9,6 +9,7 @@
     <!-- Styles -->
     <link rel="prefetch" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @yield('styles')
 </head>
 <body class="d-flex flex-column min-vh-100 bg-gray">
     <x-the-navbar />
@@ -20,5 +21,6 @@
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/ac59870ee9.js" crossorigin="anonymous"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

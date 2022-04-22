@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Like;
 use App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Http\Request;

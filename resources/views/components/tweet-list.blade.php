@@ -18,7 +18,7 @@
         <!-- Like -->
         <div class="mt-3 d-flex align-items-center justify-content-between">
             @auth
-            <div>
+            <div class="cursor-pointer">
                 <i class="far fa-heart fa-sm"></i>
                 <small>Like</small>
             </div>
@@ -42,14 +42,8 @@
             @csrf
             <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . auth()->user()->name }}" alt="{{ auth()->user()->name }}">
             <div class="w-100">
-                <input type="text" class="form-control bg-light @error('content') is-invalid @enderror" name="content" cols="30" rows="1" placeholder="Tweet your reply">
+                <input type="text" class="form-control bg-light" name="content" cols="30" rows="1" placeholder="Tweet your reply" required>
                 <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
-
-                @error('content')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
             </div>
         </form>
         <hr class="bg-secondary">
