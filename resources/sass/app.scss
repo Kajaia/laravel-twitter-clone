@@ -6,3 +6,31 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Custom
+textarea {
+    resize: none;
+}
+
+.bg-gray {
+    background-color: #F2F2F2;
+}
+
+.rounded-5 {
+    border-radius: .75rem !important;
+}
+
+.rounded-top-5 {
+    border-top-left-radius: .75rem !important;
+    border-top-right-radius: .75rem !important;
+}
+
+.rounded-bottom-5 {
+    border-bottom-left-radius: .75rem !important;
+    border-bottom-right-radius: .75rem !important;
+}
+
+.aside {
+    position: sticky;
+    top: 0;
+}
