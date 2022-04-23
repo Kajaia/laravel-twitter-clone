@@ -2,20 +2,18 @@
 
 namespace App\View\Components;
 
-use App\Models\User;
 use Illuminate\View\Component;
 
-class FollowUsers extends Component
+class TheCopyright extends Component
 {
-    public $limit;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($limit)
+    public function __construct()
     {
-        $this->limit = $limit;
+        //
     }
 
     /**
@@ -25,10 +23,6 @@ class FollowUsers extends Component
      */
     public function render()
     {
-        return view('components.follow-users', [
-            'users' => User::inRandomOrder()
-                ->limit($this->limit)
-                ->get()
-        ]);
+        return view('components.the-copyright');
     }
 }

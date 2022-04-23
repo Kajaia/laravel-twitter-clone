@@ -11,10 +11,8 @@
     <!-- Sidebar -->
     <div class="col-md-4 my-2">
         <aside class="aside">
-            <x-follow-users :limit="5" />
-            <p class="mt-3 mb-0">
-                <small>&copy; {{ \Carbon\Carbon::now()->format('Y') . ' ' . config('app.name') }}</small>
-            </p>
+            <livewire:follow-users :limit="5" />
+            <x-the-copyright />
         </aside>
     </div>
     <!-- /Sidebar -->
