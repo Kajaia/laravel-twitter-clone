@@ -18,8 +18,8 @@ class NotificationFactory extends Factory
     {
         return [
             'content' => $this->faker->text(100),
-            'sender_id' => $this->faker->numberBetween(1, 500),
-            'receiver_id' => $this->faker->numberBetween(1, 500)
+            'sender_id' => $this->faker->numberBetween(1, 100),
+            'receiver_id' => $this->faker->numberBetween(1, 100)
         ];
     }
 }

@@ -4,18 +4,9 @@
 <div class="row">
     <div class="col-md-8 @auth my-2 @endauth">
         @auth
-        <x-create-tweet />
+        <livewire:create-tweet />
         @endauth
-        @foreach($tweets as $tweet)
-        <x-tweet-list :tweet="$tweet" />
-        @endforeach
-        @if($tweets->count())
-        <p class="mb-0 text-center">
-            <a href="#!" class="text-decoration-none">
-                Load more tweets
-            </a>
-        </p>
-        @endif
+        <livewire:tweet-feed />
     </div>
     <!-- Sidebar -->
     <div class="col-md-4 my-2">

@@ -18,7 +18,7 @@ class TweetFactory extends Factory
     {
         return [
             'content' => $this->faker->text(140),
-            'user_id' => $this->faker->numberBetween(1, 500)
+            'user_id' => $this->faker->numberBetween(1, 100)
         ];
     }
 }

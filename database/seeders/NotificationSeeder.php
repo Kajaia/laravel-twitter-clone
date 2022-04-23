@@ -15,6 +15,6 @@ class NotificationSeeder extends Seeder
      */
     public function run()
     {
-        Notification::factory(1000)->create();
+        Notification::factory(300)->create();
     }
 }

@@ -10,6 +10,7 @@
     <link rel="prefetch" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @yield('styles')
+    @livewireStyles
 </head>
 <body class="d-flex flex-column min-vh-100 bg-gray">
     <x-the-navbar />
@@ -22,5 +23,6 @@
     <script src="https://kit.fontawesome.com/ac59870ee9.js" crossorigin="anonymous"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
+    @livewireScripts
 </body>
 </html>

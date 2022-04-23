@@ -18,8 +18,8 @@ class ReplyFactory extends Factory
     {
         return [
             'content' => $this->faker->text(280),
-            'tweet_id' => $this->faker->numberBetween(1, 1000),
-            'user_id' => $this->faker->numberBetween(1, 500)
+            'tweet_id' => $this->faker->numberBetween(1, 200),
+            'user_id' => $this->faker->numberBetween(1, 100)
         ];
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\View\Components\CreateTweet;
-use App\View\Components\TweetList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +18,3 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);
-Route::post('/create-tweet', [CreateTweet::class, 'store'])
-    ->name('create.tweet');
-Route::post('/reply-tweet', [TweetList::class, 'storeReply'])
-    ->name('reply.tweet');
