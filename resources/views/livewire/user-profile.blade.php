@@ -12,14 +12,18 @@
                     </small>
                 </div>
                 <div class="profile-follow">
-                    <button wire:click="profileUserFollow" class="mb-2 btn btn-sm @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
-                        <i class="fas fa-sm me-1 @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
-                        @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray()))
-                            Follow
-                        @else
-                            Unfollow
+                    @auth
+                        @if($user->id !== auth()->user()->id)
+                        <button wire:click="profileUserFollow" class="mb-2 btn btn-sm @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
+                            <i class="fas fa-sm me-1 @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
+                            @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray()))
+                                Follow
+                            @else
+                                Unfollow
+                            @endif
+                        </button>
                         @endif
-                    </button>
+                    @endauth
                     <div class="d-flex align-items-start justify-content-between gap-3">
                         <p class="text-secondary mb-0">
                             <strong>{{ $following->count() }}</strong> Following

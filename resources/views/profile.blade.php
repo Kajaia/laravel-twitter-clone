@@ -6,7 +6,9 @@
         <livewire:user-profile :user="$user" />
     </div>
     <div class="col-md-8 @auth my-2 @endauth">
+        @auth
         <livewire:create-tweet />
+        @endauth
         <livewire:tweet-feed :feed="false" :userId="$user->id" />
     </div>
     <!-- Sidebar -->
