@@ -17,7 +17,12 @@
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li><a class="dropdown-item" href="#">Notifications</a></li>
                         <li><hr class="dropdown-divider bg-light"></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li>
+                            <a class="dropdown-item cursor-pointer" onclick="document.querySelector('#logout-form').submit();">Logout</a>
+                            <form id="logout-form" class="d-none" action="{{ route('logout') }}" method="post">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </li>
                 @else

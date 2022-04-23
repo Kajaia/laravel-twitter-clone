@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Follower;
 use App\Models\Tweet;
 use Livewire\Component;
 
@@ -11,7 +12,8 @@ class TweetFeed extends Component
 
     protected $listeners = [
         'createTweet' => 'render',
-        'perPageIncrease' => 'render'
+        'perPageIncrease' => 'render',
+        'userFollow' => 'render'
     ];
 
     public function perPageIncrease() {
@@ -26,9 +28,13 @@ class TweetFeed extends Component
             'tweets' => Tweet::with([
                 'user'
             ])
+                ->whereIn('user_id', Follower::where('follower_id', auth()->user()->id)->pluck('followed_id')->toArray())
+                ->orWhere('user_id', auth()->user()->id)
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->perPage),
-            'tweetsCount' => Tweet::count()
+            'tweetsCount' => Tweet::whereIn('user_id', Follower::where('follower_id', auth()->user()->id)->pluck('followed_id')->toArray())
+                ->orWhere('user_id', auth()->user()->id)
+                ->count()
         ]);
     }
 }

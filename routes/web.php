@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'reset' => false
+]);
 
-Route::get('/', [HomeController::class, 'index']);
+Route::middleware('auth')->group(function() {
+    Route::get('/', [HomeController::class, 'index']);
+});

@@ -16,7 +16,8 @@ class FollowUsers extends Component
     public function render()
     {
         return view('livewire.follow-users', [
-            'users' => User::orderBy('id', 'desc')
+            'users' => User::inRandomOrder()
+                ->where('id', '!=', auth()->user()->id)
                 ->limit($this->limit)
                 ->get()
         ]);

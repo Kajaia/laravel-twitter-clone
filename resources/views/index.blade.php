@@ -11,7 +11,9 @@
     <!-- Sidebar -->
     <div class="col-md-4 my-2">
         <aside class="aside">
+            @auth
             <livewire:follow-users :limit="5" />
+            @endauth
             <x-the-copyright />
         </aside>
     </div>
