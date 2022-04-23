@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,9 @@ Auth::routes([
 ]);
 
 Route::middleware('auth')->group(function() {
-    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/', [HomeController::class, 'index'])
+        ->name('homepage');
 });
+
+Route::get('/{slug}', [UserController::class, 'profile'])
+    ->name('profile');

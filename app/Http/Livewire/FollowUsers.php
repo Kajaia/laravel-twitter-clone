@@ -8,10 +8,6 @@ use Livewire\Component;
 class FollowUsers extends Component
 {
     public $limit;
-
-    protected $listeners = [
-        'userFollow' => 'render'
-    ];
     
     public function render()
     {

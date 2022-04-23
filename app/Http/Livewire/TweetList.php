@@ -12,8 +12,11 @@ class TweetList extends Component
 
     public $tweet;
 
+    public $perPageReplies = 3;
+
     protected $listeners = [
-        'storeReply' => 'render'
+        'storeReply' => 'render',
+        'perPageRepliesIncrease' => 'render'
     ];
 
     protected $rules = [
@@ -47,14 +50,17 @@ class TweetList extends Component
         }
     }
 
+    public function perPageRepliesIncrease() {
+        $this->perPageReplies += 3;
+    }
+
     public function render()
     {
         return view('livewire.tweet-list', [
             'likes' => Like::where('tweet_id', $this->tweet->id),
             'replies' => Reply::where('tweet_id', $this->tweet->id)
                 ->orderBy('created_at', 'desc')
-                ->limit(3)
-                ->get(),
+                ->cursorPaginate($this->perPageReplies),
             'repliesCount' => Reply::where('tweet_id', $this->tweet->id)
                 ->count()
         ]);

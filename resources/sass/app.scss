@@ -38,3 +38,36 @@ textarea {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.profile-card {
+    align-items: flex-start;
+}
+
+.profile-name {
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.profile-follow {
+    text-align: right;
+}
+
+@media(max-width: 540px) {
+    .profile-card {
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .profile-name {
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+    
+    .profile-follow {
+        text-align: center;
+        flex-wrap: wrap;
+    }
+}

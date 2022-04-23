@@ -2,9 +2,15 @@
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3">
-                <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . $tweet->user->name }}" alt="{{ $tweet->user->name }}">
+                <a href="{{ route('profile', $tweet->user->slug) }}">
+                    <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . $tweet->user->name }}" alt="{{ $tweet->user->name }}">
+                </a>
                 <div>
-                    <h6 class="mb-0 fw-bold">{{ $tweet->user->name }}</h6>
+                    <a href="{{ route('profile', $tweet->user->slug) }}" class="text-decoration-none text-dark">
+                        <h6 class="mb-0 fw-bold">
+                            {{ $tweet->user->name }}
+                        </h6>
+                    </a>
                     <small class="text-secondary">{{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }}</small>
                 </div>
             </div>
@@ -39,7 +45,9 @@
         <hr class="bg-secondary">
         @auth
         <form wire:submit.prevent="storeReply" class="d-flex gap-3">
-            <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . auth()->user()->name }}" alt="{{ auth()->user()->name }}">
+            <a href="{{ route('profile', $tweet->user->slug) }}">
+                <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . auth()->user()->name }}" alt="{{ auth()->user()->name }}">
+            </a>
             <div class="w-100">
                 <input type="text" class="form-control bg-light @error('content') is-invalid @enderror" wire:model.debounce.500ms="content" cols="30" rows="1" placeholder="Tweet your reply">
                 
@@ -54,10 +62,16 @@
         @endauth
         @foreach($replies as $reply)
         <div class="d-flex gap-3 @if(!$loop->last) my-3 @else mt-3 mb-0 @endif">
-            <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . $reply->user->name }}" alt="{{ $reply->user->name }}">
+            <a href="{{ route('profile', $reply->user->slug) }}">
+                <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . $reply->user->name }}" alt="{{ $reply->user->name }}">
+            </a>
             <div class="bg-light rounded-3 py-2 px-3 w-100">
                 <div class="d-flex align-items-center justify-content-between gap-3 py-1">
-                    <h6 class="fw-bold m-0">{{ $reply->user->name }}</h6>
+                    <a href="{{ route('profile', $reply->user->slug) }}" class="text-decoration-none text-dark">
+                        <h6 class="fw-bold m-0">
+                            {{ $reply->user->name }}
+                        </h6>
+                    </a>
                     <small class="text-secondary m-0">{{ \Carbon\Carbon::parse($reply->created_at)->diffForHumans() }}</small>
                 </div>
                 <p class="mb-0">{!! $reply->content !!}</p>
@@ -65,11 +79,11 @@
         </div>
         @endforeach
         @if($repliesCount > 3)
-        <p class="mt-2 mb-0 text-center">
-            <a href="#!" class="text-decoration-none">
+        <div class="mt-2 mb-0 text-center">
+            <a class="text-decoration-none cursor-pointer" wire:click="perPageRepliesIncrease">
                 More replies
             </a>
-        </p>
+        </div>
         @endif
     </div>
 </div>
