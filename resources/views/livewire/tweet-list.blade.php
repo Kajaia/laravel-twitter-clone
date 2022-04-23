@@ -20,14 +20,16 @@
             <div class="mt-3 d-flex align-items-center justify-content-between">
                 @auth
                 <form wire:submit.prevent="likeTweet" class="cursor-pointer">
-                    <i wire:click="likeTweet" class="fa-heart fa-sm @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) fas text-danger @else far text-dark @endif"></i>
-                    <small wire:click="likeTweet" class="@if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) text-danger @else text-dark @endif"">
-                        @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray()))
-                            Liked
-                        @else
-                            Like
-                        @endif
-                    </small>
+                    <button type="submit" class="btn btn-link text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) text-danger @else text-dark @endif">
+                        <i class="fa-heart fa-sm @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) fas text-danger @else far text-dark @endif"></i>
+                        <small>
+                            @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray()))
+                                Liked
+                            @else
+                                Like
+                            @endif
+                        </small>
+                    </button>
                 </form>
                 @endauth
                 <small class="text-secondary d-flex align-items-center gap-3">

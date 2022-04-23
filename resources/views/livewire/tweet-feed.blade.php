@@ -2,9 +2,11 @@
     @foreach($tweets as $tweet)
         <livewire:tweet-list :tweet="$tweet" :wire:key="$tweet->id" />
     @endforeach
+    @if($tweetsCount > $tweets->count())
     <p class="mb-0 text-center">
-        <a href="#!" class="text-decoration-none">
+        <a class="cursor-pointer text-decoration-none" wire:click="perPageIncrease">
             Load more tweets
         </a>
     </p>
+    @endif
 </div>

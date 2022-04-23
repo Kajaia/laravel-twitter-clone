@@ -7,9 +7,18 @@ use Livewire\Component;
 
 class TweetFeed extends Component
 {
+    public $perPage = 10;
+
     protected $listeners = [
-        'createTweet' => 'render'
+        'createTweet' => 'render',
+        'perPageIncrease' => 'render'
     ];
+
+    public function perPageIncrease() {
+        $this->perPage += 10;
+
+        $this->emit('perPageIncrease');
+    }
 
     public function render()
     {
@@ -18,7 +27,8 @@ class TweetFeed extends Component
                 'user'
             ])
                 ->orderBy('created_at', 'desc')
-                ->paginate(10)
+                ->paginate($this->perPage),
+            'tweetsCount' => Tweet::count()
         ]);
     }
 }
