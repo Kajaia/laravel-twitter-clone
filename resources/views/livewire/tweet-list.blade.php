@@ -30,18 +30,30 @@
         <p class="mt-3 mb-0">{!! $tweet->content !!}</p>
         <div class="mt-3 d-flex align-items-center justify-content-between">
             @auth
-            <form wire:submit.prevent="likeTweet" class="cursor-pointer">
-                <button type="submit" class="btn btn-link text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) text-danger @else text-dark @endif">
-                    <i class="fa-heart fa-sm @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) fas text-danger @else far text-dark @endif"></i>
-                    <small>
-                        @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray()))
-                            Liked
-                        @else
-                            Like
-                        @endif
-                    </small>
-                </button>
-            </form>
+                <div>
+                    <button type="submit" wire:click="likeTweet" class="btn btn-link text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) text-danger @else text-dark @endif">
+                        <i class="fa-heart fa-sm @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) fas text-danger @else far text-dark @endif"></i>
+                        <small>
+                            @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray()))
+                                Liked
+                            @else
+                                Like
+                            @endif
+                        </small>
+                    </button>
+                    @if($tweet->user->id !== auth()->user()->id)
+                    <button type="submit" wire:click="addToFavourites" class="btn btn-link ms-1 text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $favourites->pluck('user_id')->toArray())) text-success @else text-dark @endif">
+                        <i class="fa-bookmark fa-sm @if(in_array(auth()->user()->id, $favourites->pluck('user_id')->toArray())) fas text-success @else far text-dark @endif"></i>
+                        <small>
+                            @if(in_array(auth()->user()->id, $favourites->pluck('user_id')->toArray()))
+                                Saved
+                            @else
+                                Save
+                            @endif
+                        </small>
+                    </button>
+                    @endif
+                </div>
             @endauth
             <small class="text-secondary d-flex align-items-center gap-3">
                 <span>

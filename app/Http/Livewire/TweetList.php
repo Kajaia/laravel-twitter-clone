@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Favourite;
 use App\Models\Like;
 use App\Models\Reply;
 use App\Models\Tweet;
@@ -18,7 +19,8 @@ class TweetList extends Component
     protected $listeners = [
         'storeReply' => 'render',
         'perPageRepliesIncrease' => 'render',
-        'deleteReply' => 'render'
+        'deleteReply' => 'render',
+        'addToFavourites' => 'render'
     ];
 
     protected $rules = [
@@ -64,6 +66,19 @@ class TweetList extends Component
         }
     }
 
+    public function addToFavourites() {
+        if(!in_array(auth()->user()->id, $this->tweet->favourites->pluck('user_id')->toArray())) {
+            Favourite::create([
+                'tweet_id' => $this->tweet->id,
+                'user_id' => auth()->user()->id
+            ]);
+        } else {
+            Favourite::where('tweet_id', $this->tweet->id)
+                ->where('user_id', auth()->user()->id)
+                ->delete();
+        }
+    }
+
     public function perPageRepliesIncrease() {
         $this->perPageReplies += 3;
     }
@@ -72,6 +87,7 @@ class TweetList extends Component
     {
         return view('livewire.tweet-list', [
             'likes' => Like::where('tweet_id', $this->tweet->id),
+            'favourites' => Favourite::where('tweet_id', $this->tweet->id),
             'replies' => Reply::where('tweet_id', $this->tweet->id)
                 ->orderBy('created_at', 'desc')
                 ->cursorPaginate($this->perPageReplies),
