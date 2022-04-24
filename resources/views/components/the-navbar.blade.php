@@ -10,7 +10,11 @@
                 @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center cursor-pointer" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="rounded-3 me-1" width="24" height="24" src="{{ config('services.ui_avatar') . auth()->user()->name }}" alt="{{ auth()->user()->name }}">
+                        @if(auth()->user()->pic)
+                            <img class="rounded-3 cover me-1" width="24" height="24" src="{{ '/storage/' . auth()->user()->pic }}" alt="{{ auth()->user()->name }}">
+                        @else
+                            <img class="rounded-3 me-1" width="24" height="24" src="{{ config('services.ui_avatar') . auth()->user()->pic }}" alt="{{ auth()->user()->name }}">
+                        @endif
                         {{ auth()->user()->name }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end rounded-5 shadow-sm border-0 mt-3" aria-labelledby="navbarDropdown">

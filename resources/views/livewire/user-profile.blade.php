@@ -1,6 +1,10 @@
 <div class="card border-0 rounded-5 shadow-sm">
     <div class="card-body profile-card d-flex gap-3">
-        <img class="rounded-3" width="128" height="128" src="{{ config('services.ui_avatar') . $user->name }}" alt="{{ $user->name }}">
+        @if($user->pic)
+            <img class="rounded-3 cover" width="128" height="128" src="{{ '/storage/' . $user->pic }}" alt="{{ $user->name }}">
+        @else
+            <img class="rounded-3" width="128" height="128" src="{{ config('services.ui_avatar') . $user->name }}" alt="{{ $user->name }}">
+        @endif
         <div class="w-100">
             <div class="d-flex gap-3 profile-name">
                 <div>

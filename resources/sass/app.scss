@@ -56,6 +56,10 @@ textarea {
     display: none;
 }
 
+.cover {
+    object-fit: cover;
+}
+
 @media(max-width: 540px) {
     .profile-card {
         align-items: center;
