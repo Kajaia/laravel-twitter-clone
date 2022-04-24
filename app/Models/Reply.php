@@ -22,4 +22,8 @@ class Reply extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function getContentAttribute($value) {
+        return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" class="text-decoration-none" target="_blank">$1</a>', $value);
+    }
 }

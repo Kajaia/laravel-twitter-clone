@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Favourite;
 use App\Models\Follower;
 use App\Models\Like;
 use App\Models\Notification;
@@ -22,9 +23,10 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(100)->create();
         Tweet::factory(200)->create();
-        Reply::factory(3000)->create();
+        Reply::factory(300)->create();
         Like::factory(300)->create();
         Notification::factory(300)->create();
         Follower::factory(300)->create();
+        Favourite::factory(200)->create();
     }
 }
