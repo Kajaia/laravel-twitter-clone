@@ -4,9 +4,14 @@
     @endforeach
     @if($tweetsCount > $tweets->count())
     <p class="mb-0 text-center">
-        <a class="cursor-pointer text-decoration-none" wire:click="perPageIncrease">
+        <a class="btn btn-link cursor-pointer text-decoration-none" wire:click="perPageIncrease">
             Load more tweets
         </a>
+    </p>
+    @endif
+    @if(!$tweets->count())
+    <p class="mb-0 text-center">
+        No tweets!
     </p>
     @endif
 </div>

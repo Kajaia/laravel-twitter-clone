@@ -1,4 +1,4 @@
-<div class="card rounded-5 border-0 @if($tweet->user->id === auth()->user()->id) mt-3 @else mt-0 @endif @auth mb-3 @else mt-2 mb-3 @endauth shadow-sm">
+<div class="card rounded-5 border-0 @auth my-3 @else mt-2 mb-3 @endauth shadow-sm">
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3">
@@ -80,7 +80,7 @@
         @endforeach
         @if($repliesCount > 3)
         <div class="mt-2 mb-0 text-center">
-            <a class="text-decoration-none cursor-pointer" wire:click="perPageRepliesIncrease">
+            <a class="btn btn-link text-decoration-none cursor-pointer" wire:click="perPageRepliesIncrease">
                 More replies
             </a>
         </div>
