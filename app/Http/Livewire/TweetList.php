@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Like;
 use App\Models\Reply;
+use App\Models\Tweet;
 use Livewire\Component;
 
 class TweetList extends Component
@@ -16,7 +17,8 @@ class TweetList extends Component
 
     protected $listeners = [
         'storeReply' => 'render',
-        'perPageRepliesIncrease' => 'render'
+        'perPageRepliesIncrease' => 'render',
+        'deleteReply' => 'render'
     ];
 
     protected $rules = [
@@ -25,6 +27,18 @@ class TweetList extends Component
 
     public function updated($propertyName) {
         $this->validateOnly($propertyName);
+    }
+
+    public function deleteTweet() {
+        Tweet::findOrFail($this->tweet->id)
+            ->delete();
+
+        $this->emit('deleteTweet');
+    }
+
+    public function deleteReply($replyId) {
+        Reply::findOrFail($replyId)
+            ->delete();
     }
 
     public function storeReply() {

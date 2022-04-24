@@ -14,6 +14,18 @@
                     <small class="text-secondary">{{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }}</small>
                 </div>
             </div>
+            @auth
+                @if($tweet->user->id === auth()->user()->id)
+                <div class="dropdown">
+                    <button class="btn text-secondary py-1 px-2 dropdown-toggle tweet-dropdown" type="button" id="{{ 'tweetDropdown' . $tweet->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end rounded-5 mt-2 border-0 shadow" aria-labelledby="{{ 'tweetDropdown' . $tweet->id }}">
+                        <li><a class="dropdown-item cursor-pointer" wire:click="deleteTweet">Delete</a></li>
+                    </ul>
+                </div>
+                @endif
+            @endauth
         </div>
         <p class="mt-3 mb-0">{!! $tweet->content !!}</p>
         <div class="mt-3 d-flex align-items-center justify-content-between">
@@ -65,14 +77,28 @@
             <a href="{{ route('profile', $reply->user->slug) }}">
                 <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . $reply->user->name }}" alt="{{ $reply->user->name }}">
             </a>
-            <div class="bg-light rounded-3 py-2 px-3 w-100">
+            <div class="bg-light rounded-3 pt-1 pb-2 px-3 w-100">
                 <div class="d-flex align-items-center justify-content-between gap-3 py-1">
                     <a href="{{ route('profile', $reply->user->slug) }}" class="text-decoration-none text-dark">
                         <h6 class="fw-bold m-0">
                             {{ $reply->user->name }}
                         </h6>
                     </a>
-                    <small class="text-secondary m-0">{{ \Carbon\Carbon::parse($reply->created_at)->diffForHumans() }}</small>
+                    <div class="d-flex align-items-center gap-2">
+                        <small class="text-secondary m-0">{{ \Carbon\Carbon::parse($reply->created_at)->diffForHumans() }}</small>
+                        @auth
+                            @if($reply->user->id === auth()->user()->id)
+                            <div class="dropdown">
+                                <button class="btn text-secondary p-0 dropdown-toggle tweet-dropdown" type="button" id="{{ 'repyDropdown' . $reply->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end rounded-5 mt-2 border-0 shadow" aria-labelledby="{{ 'repyDropdown' . $reply->id }}">
+                                    <li><a class="dropdown-item cursor-pointer" wire:click="deleteReply({{ $reply->id }})">Delete</a></li>
+                                </ul>
+                            </div>
+                            @endif
+                        @endauth
+                    </div>
                 </div>
                 <p class="mb-0">{!! $reply->content !!}</p>
             </div>

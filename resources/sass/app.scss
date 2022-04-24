@@ -52,6 +52,10 @@ textarea {
     text-align: right;
 }
 
+.tweet-dropdown::after {
+    display: none;
+}
+
 @media(max-width: 540px) {
     .profile-card {
         align-items: center;

@@ -10,7 +10,7 @@
     </p>
     @endif
     @if(!$tweets->count())
-    <p class="mb-0 text-center">
+    <p class="mt-3 mb-0 text-center">
         No tweets!
     </p>
     @endif

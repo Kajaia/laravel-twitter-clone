@@ -20,6 +20,7 @@ class TweetFeed extends Component
         'createTweet' => 'render',
         'perPageIncrease' => 'render',
         'userFollow' => 'render',
+        'deleteTweet' => 'render',
         'userFollow' => 'mount'
     ];
 
