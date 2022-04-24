@@ -69,7 +69,7 @@
         <hr class="bg-secondary">
         @auth
         <form wire:submit.prevent="storeReply" class="d-flex gap-3">
-            <a href="{{ route('profile', $tweet->user->slug) }}">
+            <a href="{{ route('profile', auth()->user()->slug) }}">
                 <img class="rounded-3" width="36" height="36" src="{{ config('services.ui_avatar') . auth()->user()->name }}" alt="{{ auth()->user()->name }}">
             </a>
             <div class="w-100">
