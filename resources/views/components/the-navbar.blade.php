@@ -13,7 +13,7 @@
                         @if(auth()->user()->pic)
                             <img class="rounded-3 cover me-1" width="24" height="24" src="{{ '/storage/' . auth()->user()->pic }}" alt="{{ auth()->user()->name }}">
                         @else
-                            <img class="rounded-3 me-1" width="24" height="24" src="{{ config('services.ui_avatar') . auth()->user()->pic }}" alt="{{ auth()->user()->name }}">
+                            <img class="rounded-3 me-1" width="24" height="24" src="{{ config('services.ui_avatar') . auth()->user()->name }}" alt="{{ auth()->user()->name }}">
                         @endif
                         {{ auth()->user()->name }}
                     </a>
