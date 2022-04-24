@@ -18,9 +18,7 @@ class TweetList extends Component
 
     protected $listeners = [
         'storeReply' => 'render',
-        'perPageRepliesIncrease' => 'render',
-        'deleteReply' => 'render',
-        'addToFavourites' => 'render'
+        'perPageRepliesIncrease' => 'render'
     ];
 
     protected $rules = [
@@ -41,6 +39,8 @@ class TweetList extends Component
     public function deleteReply($replyId) {
         Reply::findOrFail($replyId)
             ->delete();
+
+        $this->emit('deleteReply');
     }
 
     public function storeReply() {
@@ -64,6 +64,8 @@ class TweetList extends Component
                 ->where('user_id', auth()->user()->id)
                 ->delete();
         }
+
+        $this->emit('likeTweet');
     }
 
     public function addToFavourites() {
@@ -77,6 +79,8 @@ class TweetList extends Component
                 ->where('user_id', auth()->user()->id)
                 ->delete();
         }
+
+        $this->emit('addToFavourites');
     }
 
     public function perPageRepliesIncrease() {

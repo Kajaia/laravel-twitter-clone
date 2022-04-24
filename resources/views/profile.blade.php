@@ -6,12 +6,40 @@
         <livewire:user-profile :user="$user" />
     </div>
     <div class="col-md-8 @auth my-2 @endauth">
-        @auth
-            @if($user->id === auth()->user()->id)
-            <livewire:create-tweet />
-            @endif
-        @endauth
-        <livewire:tweet-feed :feed="false" :userId="$user->id" />
+        <div class="card border-0 rounded-5 shadow-sm @guest mt-2 @if(request('tab')) mb-4 @endif @endguest @if(!request('tab')) mb-3 @endif">
+            <div class="card-body p-2 d-flex align-items-center justify-content-center gap-5">
+                <a class="text-decoration-none @if(!request('tab')) fw-bold @endif" href="{{ route('profile', $user->slug) }}">Tweets</a>
+                <a class="text-decoration-none @if(request('tab') === 'liked') fw-bold @endif" href="{{ route('profile', [$user->slug, 'tab' => 'liked']) }}">Liked</a>
+                <a class="text-decoration-none @if(request('tab') === 'replied') fw-bold @endif" href="{{ route('profile', [$user->slug, 'tab' => 'replied']) }}">Replied</a>
+                @auth
+                    @if($user->id === auth()->user()->id)
+                    <a class="text-decoration-none @if(request('tab') === 'saved') fw-bold @endif" href="{{ route('profile', [$user->slug, 'tab' => 'saved']) }}">Saved</a>
+                    @endif
+                @endauth
+            </div>
+        </div>
+        @if(request('tab') === 'liked')
+            <livewire:user-likes-feed :userId="$user->id" />
+        @elseif(request('tab') === 'replied')
+            <livewire:user-reply-feed :userId="$user->id" />
+        @elseif(request('tab') === 'saved')
+            @auth
+                @if($user->id === auth()->user()->id)
+                <livewire:user-favourite-feed :userId="$user->id" />
+                @endif
+            @else
+                <p class="text-center mb-0">
+                    Favourites are hidden!
+                </p>
+            @endauth
+        @else
+            @auth
+                @if($user->id === auth()->user()->id)
+                <livewire:create-tweet />
+                @endif
+            @endauth
+            <livewire:tweet-feed :feed="false" :userId="$user->id" />
+        @endif
     </div>
     <!-- Sidebar -->
     <div class="col-md-4 my-2">
