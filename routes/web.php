@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/', [HomeController::class, 'index'])
         ->middleware('verified')
         ->name('homepage');
+
+    // Update profile details
+    Route::post('/{slug}/update', [UserController::class, 'updateProfile'])
+        ->name('update.profile');
 });
 
 // Profile route

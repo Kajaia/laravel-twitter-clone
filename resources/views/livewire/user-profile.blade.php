@@ -10,6 +10,13 @@
                 <div>
                     <h1 class="fw-bold fs-4 mb-0">
                         {{ $user->name }}
+                        @auth
+                            @if($user->id === auth()->user()->id)
+                            <a href="{{ route('profile', [$user->slug, 'tab' => 'edit']) }}" class="btn py-0 px-1" title="Edit user profile">
+                                <i class="fas fa-pen fa-sm text-secondary"></i>
+                            </a>
+                            @endif
+                        @endauth
                     </h1>
                     <small class="text-secondary">
                         {{ '@' . $user->slug }}
@@ -23,6 +30,9 @@
                                 Tweet
                             @endif
                         </small>
+                        <p class="mt-2 mb-0">
+                            {{ $user->bio }}
+                        </p>
                     </div>
                 </div>
                 <div class="profile-follow">

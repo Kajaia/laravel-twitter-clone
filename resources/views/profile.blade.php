@@ -32,6 +32,14 @@
                     Favourites are hidden!
                 </p>
             @endauth
+        @elseif(request('tab') === 'edit')
+            @auth
+                <x-change-user-details :user="$user" />
+            @else
+                <p class="text-center mb-0">
+                    Locked!
+                </p>
+            @endauth
         @else
             @auth
                 @if($user->id === auth()->user()->id)
