@@ -16,6 +16,7 @@
     <!-- Sidebar -->
     <div class="col-md-4 my-2">
         <aside class="aside">
+            <livewire:search-users />
             @auth
             <livewire:follow-users :limit="5" />
             @endauth
