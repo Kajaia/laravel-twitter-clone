@@ -3,6 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-8 @auth my-2 @endauth">
+        <x-session-notification-component />
         @auth
         <livewire:create-tweet />
         @endauth
