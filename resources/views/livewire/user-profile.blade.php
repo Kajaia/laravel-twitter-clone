@@ -10,6 +10,16 @@
                     <small class="text-secondary">
                         {{ '@' . $user->slug }}
                     </small>
+                    <div>
+                        <small class="text-secondary">
+                            <strong>{{ $tweetsCount }}</strong>
+                            @if($tweetsCount > 1)
+                                Tweets
+                            @else
+                                Tweet
+                            @endif
+                        </small>
+                    </div>
                 </div>
                 <div class="profile-follow">
                     @auth

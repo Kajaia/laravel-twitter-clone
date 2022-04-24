@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Follower;
+use App\Models\Tweet;
 use Livewire\Component;
 
 class UserProfile extends Component
@@ -31,6 +32,8 @@ class UserProfile extends Component
         return view('livewire.user-profile', [
             'followers' => Follower::where('followed_id', $this->user->id),
             'following' => Follower::where('follower_id', $this->user->id),
+            'tweetsCount' => Tweet::where('user_id', $this->user->id)
+                ->count()
         ]);
     }
 }
