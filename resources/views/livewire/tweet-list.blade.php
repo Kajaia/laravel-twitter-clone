@@ -128,7 +128,7 @@
             </div>
         </div>
         @endforeach
-        @if($repliesCount > 3)
+        @if($repliesCount > $perPageReplies)
         <div class="mt-2 mb-0 text-center">
             <a class="btn btn-link text-decoration-none cursor-pointer" wire:click="perPageRepliesIncrease">
                 More replies
