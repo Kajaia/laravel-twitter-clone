@@ -19,9 +19,41 @@
             </div>
         </div>
         @if(request('tab') === 'liked')
-            <livewire:user-likes-feed :userId="$user->id" />
+            @auth
+                @if($user->visibility !== 0 || auth()->user()->id === $user->id || $user->visibility === 0 && in_array(auth()->user()->id, $user->following->pluck('followed_id')->toArray()))
+                    <livewire:user-likes-feed :userId="$user->id" />
+                @else
+                    <p class="text-center mt-3 mb-0">
+                        Private content!
+                    </p>
+                @endif
+            @else
+                @if($user->visibility !== 0)
+                    <livewire:user-likes-feed :userId="$user->id" />
+                @else
+                    <p class="text-center mt-3 mb-0">
+                        Private content!
+                    </p>
+                @endif
+            @endauth
         @elseif(request('tab') === 'replied')
-            <livewire:user-reply-feed :userId="$user->id" />
+            @auth
+                @if($user->visibility !== 0 || auth()->user()->id === $user->id || $user->visibility === 0 && in_array(auth()->user()->id, $user->following->pluck('followed_id')->toArray()))
+                    <livewire:user-reply-feed :userId="$user->id" />
+                @else
+                    <p class="text-center mt-3 mb-0">
+                        Private content!
+                    </p>
+                @endif
+            @else
+                @if($user->visibility !== 0)
+                    <livewire:user-reply-feed :userId="$user->id" />
+                @else
+                    <p class="text-center mt-3 mb-0">
+                        Private content!
+                    </p>
+                @endif
+            @endauth
         @elseif(request('tab') === 'saved')
             @auth
                 @if($user->id === auth()->user()->id)
@@ -81,8 +113,22 @@
                 @if($user->id === auth()->user()->id)
                 <livewire:create-tweet />
                 @endif
+                @if($user->visibility !== 0 || auth()->user()->id === $user->id || $user->visibility === 0 && in_array(auth()->user()->id, $user->following->pluck('followed_id')->toArray()))
+                    <livewire:tweet-feed :feed="false" :userId="$user->id" />
+                @else
+                    <p class="text-center mt-3 mb-0">
+                        Private content!
+                    </p>
+                @endif
+            @else
+                @if($user->visibility !== 0)
+                    <livewire:tweet-feed :feed="false" :userId="$user->id" />
+                @else
+                    <p class="text-center mt-3 mb-0">
+                        Private content!
+                    </p>
+                @endif
             @endauth
-            <livewire:tweet-feed :feed="false" :userId="$user->id" />
         @endif
     </div>
     <!-- Sidebar -->
