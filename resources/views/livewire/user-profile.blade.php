@@ -49,12 +49,12 @@
                         @endif
                     @endauth
                     <div class="d-flex align-items-start justify-content-between gap-3">
-                        <p class="text-secondary mb-0">
+                        <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'following']) }}">
                             <strong>{{ $following->count() }}</strong> Following
-                        </p>
-                        <p class="text-secondary mb-0">
+                        </a>
+                        <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'followers']) }}">
                             <strong>{{ $followers->count() }}</strong> Followers
-                        </p>
+                        </a>
                     </div>
                 </div>
             </div>

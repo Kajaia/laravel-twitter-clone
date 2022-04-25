@@ -12,7 +12,8 @@ class UserProfile extends Component
 
     protected $listeners = [
         'profileUserFollow' => 'render',
-        'userFollow' => 'render'
+        'userFollow' => 'render',
+        'followUserList' => 'render'
     ];
 
     public function profileUserFollow() {
