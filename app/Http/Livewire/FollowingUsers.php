@@ -36,10 +36,9 @@ class FollowingUsers extends Component
     public function render()
     {
         return view('livewire.following-users', [
-            'users' => Follower::with([
-                $this->model
-            ])
-                ->where($this->field, $this->userId)
+            'users' => User::whereHas($this->model, function($query) {
+                $query->where($this->field, $this->userId);
+            })
                 ->get()
         ]);
     }

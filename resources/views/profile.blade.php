@@ -77,7 +77,7 @@
                 @if($user->id === auth()->user()->id)
                 <livewire:following-users 
                     :userId="$user->id" 
-                    :model="'follower'" 
+                    :model="'following'" 
                     :field="'followed_id'" 
                 />
                 @else
@@ -95,7 +95,7 @@
                 @if($user->id === auth()->user()->id)
                 <livewire:following-users 
                     :userId="$user->id" 
-                    :model="'following'" 
+                    :model="'followers'" 
                     :field="'follower_id'" 
                 />
                 @else
