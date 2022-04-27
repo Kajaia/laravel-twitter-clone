@@ -51,6 +51,8 @@ class TweetList extends Component
             'tweet_id' => $this->tweet->id,
             'user_id' => auth()->user()->id
         ]);
+
+        $this->reset('content');
     }
 
     public function likeTweet() {

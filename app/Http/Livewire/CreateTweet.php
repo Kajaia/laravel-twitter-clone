@@ -25,6 +25,8 @@ class CreateTweet extends Component
             'user_id' => auth()->user()->id
         ]);
 
+        $this->reset();
+
         $this->emit('createTweet');
     }
 

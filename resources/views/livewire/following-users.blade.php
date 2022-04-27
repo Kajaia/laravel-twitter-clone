@@ -1,5 +1,5 @@
 <div class="card border-0 shadow-sm rounded-5 mt-3">
-    <div class="card-header bg-white border-light rounded-top-5">{{ ucfirst($model) }}</div>
+    <div class="card-header bg-white border-light rounded-top-5">{{ $model === 'following' ? 'Followers' : 'Following' }}</div>
     <div class="card-body pt-0 pb-1">
         @foreach($users as $user)
         <div class="my-2 pt-2 pb-3 border-bottom">
@@ -24,9 +24,11 @@
                         </small>
                     </div>
                 </div>
+                @auth
                 <button wire:click="followUserList({{ $user->id }})" class="btn btn-sm @if(!in_array(auth()->user()->id, $user->followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
                     <i class="fas fa-sm @if(!in_array(auth()->user()->id, $user->followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
                 </button>
+                @endauth
             </div>
         </div>
         @endforeach
