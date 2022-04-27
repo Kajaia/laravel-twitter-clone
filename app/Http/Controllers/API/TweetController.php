@@ -45,7 +45,7 @@ class TweetController extends Controller
 
         return [
             'data' => Reply::where('tweet_id', $tweet_id)
-                ->whereHas('tweets', function($query) use ($userId) {
+                ->whereHas('tweet', function($query) use ($userId) {
                     $query->where('user_id', $userId);
                 })
                 ->get()
