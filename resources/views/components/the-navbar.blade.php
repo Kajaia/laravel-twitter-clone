@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand navbar-white bg-white">
+<nav class="navbar navbar-expand navbar-white bg-white sticky-top shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ route('homepage') }}">
             <i class="fab fa-twitter"></i>
@@ -17,7 +17,7 @@
                         @endif
                         {{ auth()->user()->name }}
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end rounded-5 shadow-sm border-0 mt-3" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end rounded-5 shadow border-0 mt-3" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile', auth()->user()->slug) }}">Profile</a></li>
                         <li><a class="dropdown-item d-none" href="#">Notifications</a></li>
                         <li><hr class="dropdown-divider bg-light"></li>
