@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // REST API endpoints
-Route::prefix('v1')->group(function() {
+Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     // User details
     Route::get('/me', [UserController::class, 'me']);
     Route::get('/me/following', [UserController::class, 'following']);

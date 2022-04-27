@@ -4,29 +4,32 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public $userId = 101;
-
-    public function me() {
+    public function me(Request $request) {
         return [
-            'data' => User::findOrFail($this->userId)
+            'data' => User::findOrFail($request->user()->id)
         ];
     }
 
-    public function following() {
+    public function following(Request $request) {
+        $userId = $request->user()->id;
+
         return [
-            'data' => User::whereHas('followers', function($query) {
-                $query->where('follower_id', $this->userId);
+            'data' => User::whereHas('followers', function($query) use ($userId) {
+                $query->where('follower_id', $userId);
             })->get()
         ];
     }
 
-    public function followers() {
+    public function followers(Request $request) {
+        $userId = $request->user()->id;
+
         return [
-            'data' => User::whereHas('following', function($query) {
-                $query->where('followed_id', $this->userId);
+            'data' => User::whereHas('following', function($query) use ($userId) {
+                $query->where('followed_id', $userId);
             })->get()
         ];
     }

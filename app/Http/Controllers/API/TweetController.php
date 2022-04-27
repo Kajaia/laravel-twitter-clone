@@ -10,11 +10,9 @@ use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
-    public $userId = 101;
-
-    public function tweets() {
+    public function tweets(Request $request) {
         return [
-            'data' => Tweet::where('user_id', $this->userId)
+            'data' => Tweet::where('user_id', $request->user()->id)
                 ->get()
         ];
     }
@@ -26,7 +24,7 @@ class TweetController extends Controller
 
         $tweet = Tweet::create([
             'content' => $request->content,
-            'user_id' => $this->userId
+            'user_id' => $request->user()->id
         ]);
 
         return [
@@ -34,17 +32,18 @@ class TweetController extends Controller
         ];
     }
 
-    public function getTweet($tweet_id) {
+    public function getTweet(Request $request, $tweet_id) {
         return [
             'data' => Tweet::where('id', $tweet_id)
-                ->where('user_id', $this->userId)
+                ->where('user_id', $request->user()->id)
                 ->get()[0] ?? abort(404)
         ];
     }
 
-    public function tweetReplies($tweet_id) {
+    public function tweetReplies(Request $request, $tweet_id) {
         return [
             'data' => Reply::where('tweet_id', $tweet_id)
+                ->where('user_id', $request->user()->id)
                 ->get()
         ];
     }
@@ -57,7 +56,7 @@ class TweetController extends Controller
         $reply = Reply::create([
             'content' => $request->content,
             'tweet_id' => $tweet_id,
-            'user_id' => $this->userId
+            'user_id' => $request->user()->id
         ]);
 
         return [
@@ -65,11 +64,11 @@ class TweetController extends Controller
         ];
     }
 
-    public function likeTweet($tweet_id) {
-        if(!in_array($this->userId, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray())) {
+    public function likeTweet(Request $request, $tweet_id) {
+        if(!in_array($request->user()->id, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray())) {
             $like = Like::create([
                 'tweet_id' => $tweet_id,
-                'user_id' => $this->userId
+                'user_id' => $request->user()->id
             ]);
         } else {
             return [
@@ -82,10 +81,10 @@ class TweetController extends Controller
         ];
     }
 
-    public function unlikeTweet($tweet_id) {
-        if(in_array($this->userId, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray())) {
+    public function unlikeTweet(Request $request, $tweet_id) {
+        if(in_array($request->user()->id, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray())) {
             Like::where('tweet_id', $tweet_id)
-                ->where('user_id', $this->userId)
+                ->where('user_id', $request->user()->id)
                 ->delete();
         }
     }
