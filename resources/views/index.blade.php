@@ -9,16 +9,6 @@
         @endauth
         <livewire:tweet-feed :feed="true" :userId="auth()->user()->id" />
     </div>
-    <!-- Sidebar -->
-    <div class="col-md-4 my-2">
-        <aside class="aside">
-            <livewire:search-users />
-            @auth
-            <livewire:follow-users :limit="5" />
-            @endauth
-            <x-the-copyright />
-        </aside>
-    </div>
-    <!-- /Sidebar -->
+    <x-the-sidebar :user="auth()->user()" />
 </div>
 @endsection
