@@ -45,4 +45,5 @@ Route::middleware('auth')->group(function() {
 
 // Profile route
 Route::get('/{slug}', [UserController::class, 'profile'])
+    ->middleware('verified')
     ->name('profile');

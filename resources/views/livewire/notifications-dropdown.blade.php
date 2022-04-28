@@ -6,7 +6,7 @@
         @endif
     </a>
     <ul class="dropdown-menu dropdown-menu-end notifications-dropdown rounded-5 shadow border-0 mt-3" aria-labelledby="notificationDropdown">
-        <div class="{{ auth()->user()->unreadNotifications->count() > 1 ? 'text-end' : 'text-center' }}">
+        <div class="{{ auth()->user()->unreadNotifications->count() >= 1 ? 'text-end' : 'text-center' }}">
             @if(auth()->user()->unreadNotifications->count())
             <a wire:click="markAllAsRead" class="text-decoration-none cursor-pointer me-3 mb-3">
                 <small>Mark all as read</small>
