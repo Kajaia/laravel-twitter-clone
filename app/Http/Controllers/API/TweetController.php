@@ -41,9 +41,13 @@ class TweetController extends Controller
     }
 
     public function tweetReplies(Request $request, $tweet_id) {
+        $userId = $request->user()->id;
+
         return [
             'data' => Reply::where('tweet_id', $tweet_id)
-                ->where('user_id', $request->user()->id)
+                ->whereHas('tweet', function($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                })
                 ->get()
         ];
     }
