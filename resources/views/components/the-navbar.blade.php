@@ -8,6 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
                 @auth
+                <livewire:notifications-dropdown />
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center cursor-pointer" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         @if(auth()->user()->pic)
@@ -19,7 +20,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end rounded-5 shadow border-0 mt-3" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile', auth()->user()->slug) }}">Profile</a></li>
-                        <li><a class="dropdown-item d-none" href="#">Notifications</a></li>
                         <li><hr class="dropdown-divider bg-light"></li>
                         <li>
                             <a class="dropdown-item cursor-pointer" onclick="document.querySelector('#logout-form').submit();">Logout</a>

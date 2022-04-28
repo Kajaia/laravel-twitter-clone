@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Follower;
 use App\Models\User;
+use App\Notifications\UserNotification;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class FollowingUsers extends Component
@@ -24,10 +26,14 @@ class FollowingUsers extends Component
                 'follower_id' => $this->userId,
                 'followed_id' => $user
             ]);
+
+            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has followed you.'));
         } else {
             Follower::where('follower_id', $this->userId)
                 ->where('followed_id', $user)
                 ->delete();
+
+            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has unfollowed you.'));
         }
 
         $this->emit('followUserList');

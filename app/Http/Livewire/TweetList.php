@@ -6,6 +6,8 @@ use App\Models\Favourite;
 use App\Models\Like;
 use App\Models\Reply;
 use App\Models\Tweet;
+use App\Notifications\UserNotification;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class TweetList extends Component
@@ -52,6 +54,8 @@ class TweetList extends Component
             'user_id' => auth()->user()->id
         ]);
 
+        Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.'));
+
         $this->reset('content');
     }
 
@@ -61,10 +65,14 @@ class TweetList extends Component
                 'tweet_id' => $this->tweet->id,
                 'user_id' => auth()->user()->id
             ]);
+
+            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' liked your tweet.'));
         } else {
             Like::where('tweet_id', $this->tweet->id)
                 ->where('user_id', auth()->user()->id)
                 ->delete();
+
+            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' unliked your tweet.'));
         }
 
         $this->emit('likeTweet');

@@ -60,6 +60,11 @@ textarea {
     object-fit: cover;
 }
 
+.notifications-dropdown {
+    max-height: 250px; 
+    overflow: auto;
+}
+
 @media(max-width: 540px) {
     .profile-card {
         align-items: center;
@@ -77,5 +82,11 @@ textarea {
     .profile-follow {
         text-align: center;
         flex-wrap: wrap;
+    }
+}
+
+@media(max-width: 425px) {
+    .notifications-dropdown {
+        max-width: 180px;
     }
 }
