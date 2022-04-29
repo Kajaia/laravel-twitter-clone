@@ -54,7 +54,9 @@ class TweetList extends Component
             'user_id' => auth()->user()->id
         ]);
 
-        Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.'));
+        if($this->tweet->user->id !== auth()->user()->id) {
+            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.'));
+        }
 
         $this->reset('content');
     }
