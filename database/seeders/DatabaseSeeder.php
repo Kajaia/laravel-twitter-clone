@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
         Tweet::factory(200)->create();
         Reply::factory(300)->create();
         Like::factory(300)->create();
-        Notification::factory(300)->create();
         Follower::factory(300)->create();
         Favourite::factory(200)->create();
     }
