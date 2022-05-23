@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Favourite;
 use App\Models\Follower;
 use App\Models\Like;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(100)->create();
+        Category::factory(300)->create();
         Tweet::factory(200)->create();
         Reply::factory(300)->create();
         Like::factory(300)->create();

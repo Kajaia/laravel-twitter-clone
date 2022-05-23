@@ -11,7 +11,8 @@ class Tweet extends Model
 
     protected $fillable = [
         'content',
-        'user_id'
+        'user_id',
+        'category_id'
     ];
 
     public function user() {
@@ -28,6 +29,10 @@ class Tweet extends Model
 
     public function favourites() {
         return $this->hasMany(Favourite::class);
+    }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
     }
 
     public function getContentAttribute($value) {

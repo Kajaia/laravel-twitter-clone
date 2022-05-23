@@ -16,7 +16,12 @@ return new class extends Migration
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
             $table->string('content');
-            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('category_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
