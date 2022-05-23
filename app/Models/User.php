@@ -70,6 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Favourite::class);
     }
 
+    public function categories() {
+        return $this->hasMany(Category::class);
+    }
+
     public function getBioAttribute($value) {
         return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" class="text-decoration-none" target="_blank">$1</a>', $value);
     }

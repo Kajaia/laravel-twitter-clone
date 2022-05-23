@@ -15,7 +15,9 @@
                             {{ $tweet->user->name }}
                         </h6>
                     </a>
-                    <small class="text-secondary">{{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }}</small>
+                    <small class="text-secondary">
+                        {{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }} in {{ $tweet->category->title }}
+                    </small>
                 </div>
             </div>
             @auth
