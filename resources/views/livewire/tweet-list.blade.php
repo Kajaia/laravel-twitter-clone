@@ -20,18 +20,19 @@
                     </small>
                 </div>
             </div>
-            @auth
-                @if($tweet->user->id === auth()->user()->id)
-                <div class="dropdown">
-                    <button class="btn text-secondary py-1 px-2 dropdown-toggle tweet-dropdown" type="button" id="{{ 'tweetDropdown' . $tweet->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
+            <div class="dropdown">
+                <button class="btn text-secondary py-1 px-2 dropdown-toggle tweet-dropdown" type="button" id="{{ 'tweetDropdown' . $tweet->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
                     <ul class="dropdown-menu dropdown-menu-end rounded-5 mt-2 border-0 shadow" aria-labelledby="{{ 'tweetDropdown' . $tweet->id }}">
-                        <li><a class="dropdown-item cursor-pointer" wire:click="deleteTweet">Delete</a></li>
+                        <li><a class="dropdown-item" href="{{ route('specific.tweet', $tweet->id) }}">View</a></li>
+                        @auth
+                            @if($tweet->user->id === auth()->user()->id)
+                            <li><a class="dropdown-item cursor-pointer" wire:click="deleteTweet">Delete</a></li>
+                            @endif
+                        @endauth
                     </ul>
                 </div>
-                @endif
-            @endauth
         </div>
         <p class="mt-3 mb-0">{!! $tweet->content !!}</p>
         <div class="mt-3 d-flex align-items-center justify-content-between">
