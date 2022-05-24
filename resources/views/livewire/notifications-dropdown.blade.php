@@ -11,24 +11,26 @@
             <button wire:click="markAllAsRead" class="btn p-0 me-3">
                 <small>Mark all as read</small>
             </button>
-            @else
+            @elseif(!auth()->user()->notifications->count())
                 <p class="my-2">
                     You don't have notifications!
                 </p>
             @endif
         </div>
-        @foreach(auth()->user()->unreadNotifications as $notification)
+        @foreach(auth()->user()->notifications as $notification)
             <li>
                 <a class="dropdown-item cursor-pointer d-flex align-items-center justify-content-between gap-3">
                     <div>
-                        <small>{{ $notification->data['content'] }}</small>
+                        <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ $notification->data['content'] }}</small>
                         <div class="m-0 d-flex align-items-center justify-content-between">
-                            <small class="text-secondary">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
+                            <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
                         </div>
                     </div>
+                    @if(!$notification->read_at)
                     <button wire:click="markAsRead('{{ $notification->id }}')" class="btn btn-sm btn-light rounded-pill">
                         <i class="fas fa-check fa-sm"></i>
                     </button>
+                    @endif
                 </a>
             </li>
         @endforeach
