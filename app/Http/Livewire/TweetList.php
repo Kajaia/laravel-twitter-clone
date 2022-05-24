@@ -54,7 +54,7 @@ class TweetList extends Component
             'user_id' => auth()->user()->id
         ]);
 
-        if($this->tweet->user->id !== auth()->user()->id) {
+        if($this->tweet->user_id !== auth()->user()->id) {
             Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.'));
         }
 
@@ -68,13 +68,17 @@ class TweetList extends Component
                 'user_id' => auth()->user()->id
             ]);
 
-            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' liked your tweet.'));
+            if($this->tweet->user_id !== auth()->user()->id) {
+                Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' liked your tweet.'));
+            }
         } else {
             Like::where('tweet_id', $this->tweet->id)
                 ->where('user_id', auth()->user()->id)
                 ->delete();
 
-            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' unliked your tweet.'));
+            if($this->tweet->user_id !== auth()->user()->id) {
+                Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' unliked your tweet.'));
+            }
         }
 
         $this->emit('likeTweet');
