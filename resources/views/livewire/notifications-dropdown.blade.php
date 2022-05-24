@@ -19,7 +19,7 @@
         </div>
         @foreach(auth()->user()->notifications as $notification)
             <li>
-                <a class="dropdown-item cursor-pointer d-flex align-items-center justify-content-between gap-3">
+                <a class="dropdown-item d-flex align-items-center justify-content-between gap-3" href="{{ $notification->data['tweet_id'] ? route('specific.tweet', $notification->data['tweet_id']) : '#!' }}">
                     <div>
                         <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ $notification->data['content'] }}</small>
                         <div class="m-0 d-flex align-items-center justify-content-between">

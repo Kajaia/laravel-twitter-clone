@@ -55,7 +55,7 @@ class TweetList extends Component
         ]);
 
         if($this->tweet->user_id !== auth()->user()->id) {
-            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.'));
+            Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.', $this->tweet->id));
         }
 
         $this->reset('content');
@@ -69,7 +69,7 @@ class TweetList extends Component
             ]);
 
             if($this->tweet->user_id !== auth()->user()->id) {
-                Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' liked your tweet.'));
+                Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' liked your tweet.', $this->tweet->id));
             }
         } else {
             Like::where('tweet_id', $this->tweet->id)
@@ -77,7 +77,7 @@ class TweetList extends Component
                 ->delete();
 
             if($this->tweet->user_id !== auth()->user()->id) {
-                Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' unliked your tweet.'));
+                Notification::send(Tweet::find($this->tweet->id)->user, new UserNotification(auth()->user(), auth()->user()->name.' unliked your tweet.', $this->tweet->id));
             }
         }
 

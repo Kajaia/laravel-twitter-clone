@@ -27,13 +27,13 @@ class FollowingUsers extends Component
                 'followed_id' => $user
             ]);
 
-            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has followed you.'));
+            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has followed you.', null));
         } else {
             Follower::where('follower_id', $this->userId)
                 ->where('followed_id', $user)
                 ->delete();
 
-            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has unfollowed you.'));
+            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has unfollowed you.', null));
         }
 
         $this->emit('followUserList');

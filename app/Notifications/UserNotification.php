@@ -13,18 +13,18 @@ class UserNotification extends Notification
     use Queueable;
 
     public $user;
-
     public $content;
+    public $tweetId;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(User $user, $content)
+    public function __construct(User $user, $content, $tweetId)
     {
         $this->user = $user;
-
         $this->content = $content;
+        $this->tweetId = $tweetId;
     }
 
     /**
@@ -48,7 +48,8 @@ class UserNotification extends Notification
     {
         return [
             'user' => $this->user->name,
-            'content' => $this->content
+            'content' => $this->content,
+            'tweet_id' => $this->tweetId
         ];
     }
 }

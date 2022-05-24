@@ -39,7 +39,7 @@ class CreateTweet extends Component
     public function submit() {
         $this->validate();
 
-        Tweet::create([
+        $tweet = Tweet::create([
             'content' => $this->content,
             'user_id' => auth()->user()->id,
             'category_id' => $this->category_id
@@ -50,7 +50,7 @@ class CreateTweet extends Component
             })
                 ->get();
 
-        Notification::send($followers, new UserNotification(auth()->user(), auth()->user()->name.' has tweeted.'));
+        Notification::send($followers, new UserNotification(auth()->user(), auth()->user()->name.' has tweeted.', $tweet->id));
 
         $this->reset();
 
