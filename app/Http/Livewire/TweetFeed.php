@@ -26,7 +26,8 @@ class TweetFeed extends Component
         'userFollow' => 'mount'
     ];
 
-    public function mount() {
+    public function mount() 
+    {
         if($this->feed) {
             $this->ids = Follower::where('follower_id', auth()->user()->id)->pluck('followed_id')->toArray();
         } else {
@@ -34,7 +35,8 @@ class TweetFeed extends Component
         }
     }
 
-    public function perPageIncrease() {
+    public function perPageIncrease() 
+    {
         $this->perPage += 10;
     }
 
@@ -56,8 +58,7 @@ class TweetFeed extends Component
             'tweetsCount' => Tweet::whereIn('user_id', [...$this->ids, $this->userId])
                 ->when($this->category_id, function($query) {
                     $query->where('category_id', $this->category_id);
-                })
-                ->count()
+                })->count()
         ]);
     }
 }

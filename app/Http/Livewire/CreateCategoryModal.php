@@ -11,11 +11,13 @@ class CreateCategoryModal extends Component
 
     protected $rules = ['title' => 'required'];
 
-    public function updated($propertyName) {
+    public function updated($propertyName) 
+    {
         $this->validateOnly($propertyName);
     }
 
-    public function submit() {
+    public function submit() 
+    {
         $this->validate();
 
         Category::create([

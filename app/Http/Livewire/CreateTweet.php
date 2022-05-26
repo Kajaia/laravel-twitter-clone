@@ -4,9 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Tweet;
-use App\Models\User;
-use App\Notifications\UserNotification;
-use Illuminate\Support\Facades\Notification;
+use App\Services\UserService;
 use Livewire\Component;
 
 class CreateTweet extends Component
@@ -26,17 +24,19 @@ class CreateTweet extends Component
         'category_id' => 'required'
     ];
 
-    public function mount() {
+    public function mount() 
+    {
         $this->category_id = Category::where('user_id', auth()->user()->id)
-            ->first()
-            ->id ?? null;
+            ->first()->id ?? null;
     }
 
-    public function updated($propertyName) {
+    public function updated($propertyName) 
+    {
         $this->validateOnly($propertyName);
     }
 
-    public function submit() {
+    public function submit(UserService $service) 
+    {
         $this->validate();
 
         $tweet = Tweet::create([
@@ -45,21 +45,16 @@ class CreateTweet extends Component
             'category_id' => $this->category_id
         ]);
 
-        $followers = User::whereHas('following', function($query) {
-                $query->where('followed_id', auth()->user()->id);
-            })
-                ->get();
-
-        Notification::send($followers, new UserNotification(auth()->user(), auth()->user()->name.' has tweeted.', $tweet->id));
+        $service->userTweetedNotification($tweet);
 
         $this->reset();
 
         $this->emit('createTweet');
     }
 
-    public function removeCategory($id) {
-        Category::findOrFail($id)
-            ->delete();
+    public function removeCategory($id) 
+    {
+        Category::findOrFail($id)->delete();
 
         $this->emit('deleteCategory');
     }

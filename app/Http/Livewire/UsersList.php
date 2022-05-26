@@ -3,23 +3,16 @@
 namespace App\Http\Livewire;
 
 use App\Models\Follower;
+use App\Services\UserService;
 use Livewire\Component;
 
 class UsersList extends Component
 {
     public $user;
 
-    public function followUser() {
-        if(!in_array(auth()->user()->id, $this->user->followers->pluck('follower_id')->toArray())) {
-            Follower::create([
-                'follower_id' => auth()->user()->id,
-                'followed_id' => $this->user->id
-            ]);
-        } else {
-            Follower::where('follower_id', auth()->user()->id)
-                ->where('followed_id', $this->user->id)
-                ->delete();
-        }
+    public function followUser(UserService $service) 
+    {
+        $service->followUser($this->user);
 
         $this->emit('userFollow');
     }

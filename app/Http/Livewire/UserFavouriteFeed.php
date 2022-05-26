@@ -17,7 +17,8 @@ class UserFavouriteFeed extends Component
         'addToFavourites' => 'render'
     ];
 
-    public function perPageIncrease() {
+    public function perPageIncrease() 
+    {
         $this->perPage += 10;
     }
 
@@ -34,8 +35,7 @@ class UserFavouriteFeed extends Component
                 ->cursorPaginate($this->perPage),
             'tweetsCount' => Tweet::whereHas('favourites', function($query) {
                 $query->where('user_id', $this->userId);
-            })
-                ->count()
+            })->count()
         ]);
     }
 }

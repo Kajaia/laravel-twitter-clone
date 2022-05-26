@@ -2,39 +2,23 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Follower;
 use App\Models\User;
-use App\Notifications\UserNotification;
-use Illuminate\Support\Facades\Notification;
+use App\Services\UserService;
 use Livewire\Component;
 
 class FollowingUsers extends Component
 {
     public $userId;
-
     public $model;
-
     public $field;
 
     protected $listeners = [
         'userFollow' => 'render'
     ];
 
-    public function followUserList($user) {
-        if(!in_array($this->userId, User::findOrFail($user)->followers->pluck('follower_id')->toArray())) {
-            Follower::create([
-                'follower_id' => $this->userId,
-                'followed_id' => $user
-            ]);
-
-            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has followed you.', null));
-        } else {
-            Follower::where('follower_id', $this->userId)
-                ->where('followed_id', $user)
-                ->delete();
-
-            Notification::send(User::find($user), new UserNotification(auth()->user(), auth()->user()->name.' has unfollowed you.', null));
-        }
+    public function followUserList(UserService $service, User $user) 
+    {
+        $service->followUser($user);
 
         $this->emit('followUserList');
     }
@@ -44,8 +28,7 @@ class FollowingUsers extends Component
         return view('livewire.following-users', [
             'users' => User::whereHas($this->model, function($query) {
                 $query->where($this->field, $this->userId);
-            })
-                ->get()
+            })->get()
         ]);
     }
 }
