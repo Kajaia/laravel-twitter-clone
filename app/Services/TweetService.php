@@ -10,7 +10,15 @@ use Illuminate\Http\Request;
 
 class TweetService {
 
-    public function createTweet(TweetRequest $request) {
+    protected Request $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function createTweet(TweetRequest $request) 
+    {
         $tweet = Tweet::create([
             'content' => $request->content,
             'user_id' => $request->user()->id,
@@ -20,38 +28,43 @@ class TweetService {
         return $tweet;
     }
 
-    public function getUserTweet(Request $request, $tweet_id) {
+    public function getUserTweet($tweet_id) 
+    {
         return Tweet::where('id', $tweet_id)
-            ->where('user_id', $request->user()->id)
+            ->where('user_id', $this->request->user()->id)
             ->first();
     }
 
-    public function getTweetReplies(Request $request, $tweet_id) {
+    public function getTweetReplies($tweet_id) 
+    {
         return Reply::where('tweet_id', $tweet_id)
-            ->whereHas('tweet', function($query) use ($request) {
-                $query->where('user_id', $request->user()->id);
+            ->whereHas('tweet', function($query) {
+                $query->where('user_id', $this->request->user()->id);
             });
     }
 
-    public function replyTweet(Request $request, $tweet_id) {
+    public function replyTweet($tweet_id) 
+    {
         $reply = Reply::create([
-            'content' => $request->content,
+            'content' => $this->request->content,
             'tweet_id' => $tweet_id,
-            'user_id' => $request->user()->id
+            'user_id' => $this->request->user()->id
         ]);
 
         return $reply;
     }
 
-    public function isLiked($userId, $tweet_id) {
+    public function isLiked($userId, $tweet_id) 
+    {
         return in_array($userId, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray());
     }
 
-    public function likeTweet(Request $request, $tweet_id) {
-        if(!$this->isLiked($request->user()->id, $tweet_id)) {
+    public function likeTweet($tweet_id) 
+    {
+        if(!$this->isLiked($this->request->user()->id, $tweet_id)) {
             $like = Like::create([
                 'tweet_id' => $tweet_id,
-                'user_id' => $request->user()->id
+                'user_id' => $this->request->user()->id
             ]);
         } else {
             return response()->json('Already liked!');
@@ -60,10 +73,11 @@ class TweetService {
         return $like;
     }
 
-    public function unlikeTweet(Request $request, $tweet_id) {
-        if($this->isLiked($request->user()->id, $tweet_id)) {
+    public function unlikeTweet($tweet_id) 
+    {
+        if($this->isLiked($this->request->user()->id, $tweet_id)) {
             $unlike = Like::where('tweet_id', $tweet_id)
-                ->where('user_id', $request->user()->id)
+                ->where('user_id', $this->request->user()->id)
                 ->delete();
         } else {
             return response()->json('Can\'t unlike!');

@@ -9,14 +9,23 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function profile($slug) {
+    protected UpdateUserAction $action;
+
+    public function __construct(UpdateUserAction $action)
+    {
+        $this->action = $action;
+    }
+
+    public function profile($slug) 
+    {
         return view('profile', [
             'user' => User::where('slug', $slug)->first()
         ]);
     }
 
-    public function update(UserUpdateRequest $request, UpdateUserAction $action, $slug) {
-        $action->handle($request, $slug);
+    public function update(UserUpdateRequest $request, $slug) 
+    {
+        $this->action->handle($request, $slug);
 
         return redirect()
             ->route('profile', [Str::slug($request->slug, '-'), 'tab' => 'edit']);

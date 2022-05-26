@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UpdateUserAction {
 
-    public function handle(UserUpdateRequest $request, $slug) {
+    public function handle(UserUpdateRequest $request, $slug) 
+    {
         $user = User::where('slug', $slug)->first();
 
         $request->file('pic') ? $pic = $request->file('pic')->store('images', 'public') : $pic = $user->pic;

@@ -10,31 +10,47 @@ use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
-    public function tweets(Request $request) {
-        return Tweet::where('user_id', $request->user()->id)->cursorPaginate();
+    protected Request $request;
+    protected TweetService $service;
+
+    public function __construct(Request $request, TweetService $service)
+    {
+        $this->request = $request;
+        $this->service = $service;
     }
 
-    public function store(TweetRequest $request, TweetService $service) {
-        return $service->createTweet($request);
+    public function tweets()
+    {
+        return Tweet::where('user_id', $this->request->user()->id)->cursorPaginate();
     }
 
-    public function get(Request $request, TweetService $service, $tweet_id) {
-        return $service->getUserTweet($request, $tweet_id);
+    public function store(TweetRequest $request)
+    {
+        return $this->service->createTweet($request);
     }
 
-    public function replies(Request $request, TweetService $service, $tweet_id) {
-        return $service->getTweetReplies($request, $tweet_id)->cursorPaginate();
+    public function get($tweet_id) 
+    {
+        return $this->service->getUserTweet($tweet_id);
     }
 
-    public function like(Request $request, TweetService $service, $tweet_id) {
-        return $service->likeTweet($request, $tweet_id);
+    public function replies($tweet_id) 
+    {
+        return $this->service->getTweetReplies($tweet_id)->cursorPaginate();
     }
 
-    public function unlike(Request $request, TweetService $service, $tweet_id) {
-        return $service->unlikeTweet($request, $tweet_id);
+    public function like($tweet_id) 
+    {
+        return $this->service->likeTweet($tweet_id);
     }
 
-    public function reply(Request $request, TweetService $service, $tweet_id) {
-        return $service->replyTweet($request, $tweet_id);
+    public function unlike($tweet_id) 
+    {
+        return $this->service->unlikeTweet($tweet_id);
+    }
+
+    public function reply($tweet_id) 
+    {
+        return $this->service->replyTweet($tweet_id);
     }
 }
