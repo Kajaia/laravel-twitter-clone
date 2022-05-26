@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function() {
     Route::view('/', 'index')->middleware('verified')->name('homepage');
 
     // Update profile details
-    Route::post('/{slug}/update', [UserController::class, 'updateProfile'])->name('update.profile');
+    Route::post('/{slug}/update', [UserController::class, 'update'])->name('update.profile');
 });
 
 // Profile and specific tweet routes

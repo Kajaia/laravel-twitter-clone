@@ -25,14 +25,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function() {
     // User details
     Route::get('/me', [UserController::class, 'me']);
     Route::get('/me/following', [UserController::class, 'following']);
-    Route::get('/me/follows', [UserController::class, 'followers']);
+    Route::get('/me/follows', [UserController::class, 'follows']);
 
     // Tweets, replies and likes
     Route::get('/tweets', [TweetController::class, 'tweets']);
-    Route::post('/tweets', [TweetController::class, 'createTweet']);
-    Route::get('/tweets/{tweet_id}', [TweetController::class, 'getTweet']);
-    Route::get('/tweets/{tweet_id}/replies', [TweetController::class, 'tweetReplies']);
-    Route::post('/tweets/{tweet_id}/like', [TweetController::class, 'likeTweet']);
-    Route::delete('/tweets/{tweet_id}/unlike', [TweetController::class, 'unlikeTweet']);
-    Route::post('/tweets/{tweet_id}/reply', [TweetController::class, 'replyTweet']);
+    Route::post('/tweets', [TweetController::class, 'store']);
+    Route::get('/tweets/{tweet_id}', [TweetController::class, 'get']);
+    Route::get('/tweets/{tweet_id}/replies', [TweetController::class, 'replies']);
+    Route::post('/tweets/{tweet_id}/like', [TweetController::class, 'like']);
+    Route::delete('/tweets/{tweet_id}/unlike', [TweetController::class, 'unlike']);
+    Route::post('/tweets/{tweet_id}/reply', [TweetController::class, 'reply']);
 });

@@ -9,22 +9,18 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function me(Request $request) {
-        return ['data' => User::findOrFail($request->user()->id)];
+        return User::findOrFail($request->user()->id);
     }
 
     public function following(Request $request) {
-        return [
-            'data' => User::whereHas('followers', function($query) use ($request) {
+        return User::whereHas('followers', function($query) use ($request) {
                 $query->where('follower_id', $request->user()->id);
-            })->get()
-        ];
+            })->cursorPaginate();
     }
 
-    public function followers(Request $request) {
-        return [
-            'data' => User::whereHas('following', function($query) use ($request) {
+    public function follows(Request $request) {
+        return User::whereHas('following', function($query) use ($request) {
                 $query->where('followed_id', $request->user()->id);
-            })->get()
-        ];
+            })->cursorPaginate();
     }
 }
