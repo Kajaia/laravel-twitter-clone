@@ -25,7 +25,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
         ->middleware('signed')
         ->name('verification.verify');
-    Route::get('/email/verify', [EmailVerificationController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify', [EmailVerificationController::class, 'notice'])
+        ->name('verification.notice');
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
         ->middleware('throttle:6,1')
         ->name('verification.resend');
@@ -34,7 +35,8 @@ Route::middleware('auth')->group(function() {
     Route::view('/', 'index')->middleware('verified')->name('homepage');
 
     // Update profile details
-    Route::post('/{slug}/update', [UserController::class, 'update'])->name('update.profile');
+    Route::post('/{slug}/update', [UserController::class, 'update'])
+        ->name('update.profile');
 });
 
 // Profile and specific tweet routes
