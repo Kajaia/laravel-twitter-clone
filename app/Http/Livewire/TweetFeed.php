@@ -43,7 +43,7 @@ class TweetFeed extends Component
     public function render()
     {
         return view('livewire.tweet-feed', [
-            'categories' => Category::where('user_id', auth()->user()->id)
+            'categories' => Category::where('user_id', auth()->user()->id ?? null)
                 ->orderBy('title', 'asc')
                 ->get(),
             'tweets' => Tweet::with([
