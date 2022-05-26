@@ -21,7 +21,8 @@ class TweetController extends Controller
 
         $tweet = Tweet::create([
             'content' => $request->content,
-            'user_id' => $request->user()->id
+            'user_id' => $request->user()->id,
+            'category_id' => $request->category_id
         ]);
 
         return ['data' => $tweet];
@@ -71,9 +72,13 @@ class TweetController extends Controller
 
     public function unlikeTweet(Request $request, $tweet_id) {
         if(in_array($request->user()->id, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray())) {
-            Like::where('tweet_id', $tweet_id)
+            $unlike = Like::where('tweet_id', $tweet_id)
                 ->where('user_id', $request->user()->id)
                 ->delete();
+        } else {
+            return ['status' => 'Can\'t unlike!'];
         }
+
+        return ['data' => $unlike];
     }
 }
