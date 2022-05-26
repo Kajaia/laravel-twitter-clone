@@ -8,8 +8,6 @@ class TweetController extends Controller
 {
     public function __invoke($id)
     {
-        return view('tweet', [
-            'tweet' => Tweet::findOrFail($id)
-        ]);
+        return view('tweet', ['tweet' => Tweet::findOrFail($id)]);
     }
 }

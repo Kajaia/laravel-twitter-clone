@@ -12,50 +12,40 @@ class TweetController extends Controller
 {
     public function tweets(Request $request) {
         return [
-            'data' => Tweet::where('user_id', $request->user()->id)
-                ->get()
+            'data' => Tweet::where('user_id', $request->user()->id)->get()
         ];
     }
 
     public function createTweet(Request $request) {
-        $request->validate([
-            'content' => ['required', 'max:140']
-        ]);
+        $request->validate(['content' => ['required', 'max:140']]);
 
         $tweet = Tweet::create([
             'content' => $request->content,
             'user_id' => $request->user()->id
         ]);
 
-        return [
-            'data' => $tweet
-        ];
+        return ['data' => $tweet];
     }
 
     public function getTweet(Request $request, $tweet_id) {
         return [
             'data' => Tweet::where('id', $tweet_id)
                 ->where('user_id', $request->user()->id)
-                ->get()[0] ?? abort(404)
+                ->first()
         ];
     }
 
     public function tweetReplies(Request $request, $tweet_id) {
-        $userId = $request->user()->id;
-
         return [
             'data' => Reply::where('tweet_id', $tweet_id)
-                ->whereHas('tweet', function($query) use ($userId) {
-                    $query->where('user_id', $userId);
-                })
-                ->get()
+                ->whereHas('tweet', function($query) use ($request) {
+                    $query->where('user_id', $request->user()->id);
+                })->get()
         ];
     }
 
     public function replyTweet(Request $request, $tweet_id) {
-        $request->validate([
-            'content' => ['required', 'max:280']
-        ]);
+        $request->validate(['content' => ['required', 'max:280']]);
 
         $reply = Reply::create([
             'content' => $request->content,
@@ -63,9 +53,7 @@ class TweetController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        return [
-            'data' => $reply
-        ];
+        return ['data' => $reply];
     }
 
     public function likeTweet(Request $request, $tweet_id) {
@@ -75,14 +63,10 @@ class TweetController extends Controller
                 'user_id' => $request->user()->id
             ]);
         } else {
-            return [
-                'status' => 'Already liked!'
-            ];
+            return ['status' => 'Already liked!'];
         }
 
-        return [
-            'data' => $like
-        ];
+        return ['data' => $like];
     }
 
     public function unlikeTweet(Request $request, $tweet_id) {

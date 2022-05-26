@@ -12,13 +12,12 @@ class UserController extends Controller
 {
     public function profile($slug) {
         return view('profile', [
-            'user' => User::where('slug', $slug)
-                ->get()[0] ?? abort(404)
+            'user' => User::where('slug', $slug)->first()
         ]);
     }
 
     public function updateProfile(Request $request, $slug) {
-        $user = User::where('slug', $slug)->get()[0] ?? abort(404);
+        $user = User::where('slug', $slug)->first();
 
         $request->validate([
             'name' => ['required', 'min:5'],
