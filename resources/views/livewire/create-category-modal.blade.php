@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="text" wire:model="title" placeholder="Ex: Business" class="form-control @error('title') is-invalid @enderror">
+        <input type="text" wire:model.debounce.500ms="title" placeholder="Ex: Business" class="form-control @error('title') is-invalid @enderror">
 
         @error('title')
         <div class="invalid-feedback">
