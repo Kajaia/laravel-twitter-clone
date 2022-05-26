@@ -12,7 +12,7 @@ class SearchUsers extends Component
     public function render()
     {
         return view('livewire.search-users', [
-            'users' => User::where('name', 'LIKE', "%$this->search%")
+            'users' => User::where('name', 'LIKE', "%{$this->search}%")
                 ->limit(5)
                 ->get()
         ]);

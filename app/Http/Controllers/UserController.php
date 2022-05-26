@@ -18,8 +18,7 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request, $slug) {
-        $user = User::where('slug', $slug)
-            ->get()[0] ?? abort(404);
+        $user = User::where('slug', $slug)->get()[0] ?? abort(404);
 
         $request->validate([
             'name' => ['required', 'min:5'],
@@ -46,10 +45,6 @@ class UserController extends Controller
             'visibility' => $request->visibility
         ]);
 
-        return redirect()
-            ->route('profile', [
-                Str::slug($request->slug, '-'), 
-                'tab' => 'edit'
-            ]);
+        return redirect()->route('profile', [Str::slug($request->slug, '-'), 'tab' => 'edit']);
     }
 }
