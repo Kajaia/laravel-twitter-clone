@@ -18,12 +18,12 @@ class TweetFeed extends Component
     protected $queryString = ['category_id'];
 
     protected $listeners = [
-        'createTweet' => 'render',
-        'perPageIncrease' => 'render',
-        'userFollow' => 'render',
-        'deleteTweet' => 'render',
-        'deleteCategory' => 'render',
-        'userFollow' => 'mount'
+        'createTweet' => '$refresh',
+        'perPageIncrease' => '$refresh',
+        'userFollow' => '$refresh',
+        'deleteTweet' => '$refresh',
+        'deleteCategory' => '$refresh',
+        'userFollow' => '$refresh'
     ];
 
     public function mount() 
@@ -40,13 +40,16 @@ class TweetFeed extends Component
         $this->perPage += 10;
     }
 
-    public function render()
+    public function getCategoriesProperty()
     {
-        return view('livewire.tweet-feed', [
-            'categories' => Category::where('user_id', auth()->user()->id ?? null)
-                ->orderBy('title', 'asc')
-                ->get(),
-            'tweets' => Tweet::with([
+        return Category::where('user_id', auth()->user()->id ?? null)
+            ->orderBy('title', 'asc')
+            ->get();
+    }
+
+    public function getTweetsProperty()
+    {
+        return Tweet::with([
                 'user'
             ])
                 ->whereIn('user_id', [...$this->ids, $this->userId])
@@ -54,11 +57,19 @@ class TweetFeed extends Component
                     $query->where('category_id', $this->category_id);
                 })
                 ->orderBy('created_at', 'desc')
-                ->cursorPaginate($this->perPage),
-            'tweetsCount' => Tweet::whereIn('user_id', [...$this->ids, $this->userId])
-                ->when($this->category_id, function($query) {
-                    $query->where('category_id', $this->category_id);
-                })->count()
-        ]);
+                ->cursorPaginate($this->perPage);
+    }
+
+    public function getTweetsCountProperty()
+    {
+        return Tweet::whereIn('user_id', [...$this->ids, $this->userId])
+            ->when($this->category_id, function($query) {
+                $query->where('category_id', $this->category_id);
+            })->count();
+    }
+
+    public function render()
+    {
+        return view('livewire.tweet-feed');
     }
 }

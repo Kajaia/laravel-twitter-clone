@@ -12,9 +12,9 @@ class UserFavouriteFeed extends Component
     public $userId;
 
     protected $listeners = [
-        'perPageIncrease' => 'render',
-        'deleteTweet' => 'render',
-        'addToFavourites' => 'render'
+        'perPageIncrease' => '$refresh',
+        'deleteTweet' => '$refresh',
+        'addToFavourites' => '$refresh'
     ];
 
     public function perPageIncrease() 
@@ -22,20 +22,27 @@ class UserFavouriteFeed extends Component
         $this->perPage += 10;
     }
 
-    public function render()
+    public function getTweetsProperty()
     {
-        return view('livewire.user-favourite-feed', [
-            'tweets' => Tweet::with([
+        return Tweet::with([
                 'user'
             ])
                 ->whereHas('favourites', function($query) {
                     $query->where('user_id', $this->userId);
                 })
                 ->orderBy('created_at', 'desc')
-                ->cursorPaginate($this->perPage),
-            'tweetsCount' => Tweet::whereHas('favourites', function($query) {
+                ->cursorPaginate($this->perPage);
+    }
+
+    public function getTweetsCountProperty()
+    {
+        return Tweet::whereHas('favourites', function($query) {
                 $query->where('user_id', $this->userId);
-            })->count()
-        ]);
+            })->count();
+    }
+
+    public function render()
+    {
+        return view('livewire.user-favourite-feed');
     }
 }

@@ -1,7 +1,7 @@
 <div class="card border-0 shadow-sm rounded-5 mt-3">
     <div class="card-header bg-white border-light rounded-top-5">{{ $model === 'following' ? 'Followers' : 'Following' }}</div>
     <div class="card-body pt-0 pb-1">
-        @foreach($users as $user)
+        @foreach($this->users as $user)
         <div class="my-2 pt-2 pb-3 border-bottom">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">

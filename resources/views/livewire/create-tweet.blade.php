@@ -18,11 +18,11 @@
                 </div>
                 @enderror
                 <div class="mt-1">
-                    @if($categories->count())
+                    @if($this->categories->count())
                     Choose category:
                     @endif
                     <div class="d-flex align-items-center flex-wrap gap-2">
-                        @foreach($categories as $category)
+                        @foreach($this->categories as $category)
                         <div class="form-check">
                             <label class="form-check-label cursor-pointer" for="category-{{ $category->id }}">
                                 <input class="form-check-input" type="radio" wire:model="category_id" name="category_id" value="{{ $category->id }}" id="category-{{ $category->id }}">

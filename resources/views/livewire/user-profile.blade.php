@@ -23,8 +23,8 @@
                     </small>
                     <div>
                         <small class="text-secondary">
-                            <strong>{{ $tweetsCount }}</strong>
-                            @if($tweetsCount > 1)
+                            <strong>{{ $this->tweetsCount }}</strong>
+                            @if($this->tweetsCount > 1)
                                 Tweets
                             @else
                                 Tweet
@@ -50,10 +50,10 @@
                     @endauth
                     <div class="d-flex align-items-start justify-content-between gap-3">
                         <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'following']) }}">
-                            <strong>{{ $following->count() }}</strong> Following
+                            <strong>{{ $this->following }}</strong> Following
                         </a>
                         <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'followers']) }}">
-                            <strong>{{ $followers->count() }}</strong> Followers
+                            <strong>{{ $this->followers }}</strong> Followers
                         </a>
                     </div>
                 </div>

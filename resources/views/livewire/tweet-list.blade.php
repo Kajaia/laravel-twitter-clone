@@ -38,10 +38,10 @@
         <div class="mt-3 d-flex align-items-center justify-content-between">
             @auth
                 <div>
-                    <button type="submit" wire:click="likeTweet" class="btn btn-link text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) text-danger @else text-dark @endif">
-                        <i class="fa-heart fa-sm @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray())) fas text-danger @else far text-dark @endif"></i>
+                    <button type="submit" wire:click="likeTweet" class="btn btn-link text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $this->likes->pluck('user_id')->toArray())) text-danger @else text-dark @endif">
+                        <i class="fa-heart fa-sm @if(in_array(auth()->user()->id, $this->likes->pluck('user_id')->toArray())) fas text-danger @else far text-dark @endif"></i>
                         <small>
-                            @if(in_array(auth()->user()->id, $likes->pluck('user_id')->toArray()))
+                            @if(in_array(auth()->user()->id, $this->likes->pluck('user_id')->toArray()))
                                 Liked
                             @else
                                 Like
@@ -49,10 +49,10 @@
                         </small>
                     </button>
                     @if($tweet->user->id !== auth()->user()->id)
-                    <button type="submit" wire:click="addToFavourites" class="btn btn-link ms-1 text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $favourites->pluck('user_id')->toArray())) text-success @else text-dark @endif">
-                        <i class="fa-bookmark fa-sm @if(in_array(auth()->user()->id, $favourites->pluck('user_id')->toArray())) fas text-success @else far text-dark @endif"></i>
+                    <button type="submit" wire:click="addToFavourites" class="btn btn-link ms-1 text-decoration-none p-0 m-0 @if(in_array(auth()->user()->id, $this->favourites->pluck('user_id')->toArray())) text-success @else text-dark @endif">
+                        <i class="fa-bookmark fa-sm @if(in_array(auth()->user()->id, $this->favourites->pluck('user_id')->toArray())) fas text-success @else far text-dark @endif"></i>
                         <small>
-                            @if(in_array(auth()->user()->id, $favourites->pluck('user_id')->toArray()))
+                            @if(in_array(auth()->user()->id, $this->favourites->pluck('user_id')->toArray()))
                                 Saved
                             @else
                                 Save
@@ -64,12 +64,12 @@
             @endauth
             <small class="text-secondary d-flex align-items-center gap-3">
                 <span>
-                    {{ $likes->count() }}
-                    {{ $likes->count() > 1 ? 'Likes' : 'Like' }}
+                    {{ $this->likes->count() }}
+                    {{ $this->likes->count() > 1 ? 'Likes' : 'Like' }}
                 </span>
                 <span>
-                    {{ $repliesCount }}
-                    {{ $repliesCount > 1 ? 'Replies' : 'Reply' }}
+                    {{ $this->repliesCount }}
+                    {{ $this->repliesCount > 1 ? 'Replies' : 'Reply' }}
                 </span>
             </small>
         </div>
@@ -95,7 +95,7 @@
         </form>
         <hr class="bg-secondary">
         @endauth
-        @foreach($replies as $reply)
+        @foreach($this->replies as $reply)
         <div class="d-flex gap-3 @if(!$loop->last) my-3 @else mt-3 mb-0 @endif">
             <a href="{{ route('profile', $reply->user->slug) }}">
                 @if($reply->user->pic)
@@ -131,7 +131,7 @@
             </div>
         </div>
         @endforeach
-        @if($repliesCount > $perPageReplies)
+        @if($this->repliesCount > $perPageReplies)
         <div class="mt-2 mb-0 text-center">
             <a class="btn btn-link text-decoration-none cursor-pointer" wire:click="perPageRepliesIncrease">
                 More replies

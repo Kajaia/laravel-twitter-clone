@@ -10,16 +10,19 @@ class FollowUsers extends Component
     public $limit;
 
     protected $listeners = [
-        'followUserList' => 'render'
+        'followUserList' => '$refresh'
     ];
+
+    public function getUsersProperty()
+    {
+        return User::inRandomOrder()
+            ->where('id', '!=', auth()->user()->id)
+            ->limit($this->limit)
+            ->get();
+    }
     
     public function render()
     {
-        return view('livewire.follow-users', [
-            'users' => User::inRandomOrder()
-                ->where('id', '!=', auth()->user()->id)
-                ->limit($this->limit)
-                ->get()
-        ]);
+        return view('livewire.follow-users');
     }
 }

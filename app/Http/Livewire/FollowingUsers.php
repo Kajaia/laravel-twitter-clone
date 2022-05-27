@@ -13,7 +13,7 @@ class FollowingUsers extends Component
     public $field;
 
     protected $listeners = [
-        'userFollow' => 'render'
+        'userFollow' => '$refresh'
     ];
 
     public function followUserList(UserService $service, User $user) 
@@ -23,12 +23,15 @@ class FollowingUsers extends Component
         $this->emit('followUserList');
     }
 
+    public function getUsersProperty()
+    {
+        return User::whereHas($this->model, function($query) {
+                $query->where($this->field, $this->userId);
+            })->get();
+    }
+
     public function render()
     {
-        return view('livewire.following-users', [
-            'users' => User::whereHas($this->model, function($query) {
-                $query->where($this->field, $this->userId);
-            })->get()
-        ]);
+        return view('livewire.following-users');
     }
 }

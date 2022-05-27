@@ -12,9 +12,9 @@ class UserReplyFeed extends Component
     public $userId;
 
     protected $listeners = [
-        'perPageIncrease' => 'render',
-        'deleteTweet' => 'render',
-        'deleteReply' => 'render'
+        'perPageIncrease' => '$refresh',
+        'deleteTweet' => '$refresh',
+        'deleteReply' => '$refresh'
     ];
 
     public function perPageIncrease() 
@@ -22,20 +22,27 @@ class UserReplyFeed extends Component
         $this->perPage += 10;
     }
 
-    public function render()
+    public function getTweetsProperty()
     {
-        return view('livewire.user-reply-feed', [
-            'tweets' => Tweet::with([
+        return Tweet::with([
                 'user'
             ])
                 ->whereHas('replies', function($query) {
                     $query->where('user_id', $this->userId);
                 })
                 ->orderBy('created_at', 'desc')
-                ->cursorPaginate($this->perPage),
-            'tweetsCount' => Tweet::whereHas('replies', function($query) {
+                ->cursorPaginate($this->perPage);
+    }
+
+    public function getTweetsCountProperty()
+    {
+        return Tweet::whereHas('replies', function($query) {
                 $query->where('user_id', $this->userId);
-            })->count()
-        ]);
+            })->count();
+    }
+
+    public function render()
+    {
+        return view('livewire.user-reply-feed');
     }
 }

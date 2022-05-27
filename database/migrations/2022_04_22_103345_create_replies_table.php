@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('content');
             $table->foreignId('tweet_id')
                 ->constrained()
-                ->onDelelete('cascade');
+                ->onDelete('cascade');
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');

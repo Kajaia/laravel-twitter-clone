@@ -15,13 +15,13 @@
                     </h6>
                 </a>
                 <small class="text-secondary">
-                    {{ $followers->count() }} 
-                    {{ $followers->count() > 1 ? 'followers' : 'follower' }}
+                    {{ $this->followers->count() }} 
+                    {{ $this->followers->count() > 1 ? 'followers' : 'follower' }}
                 </small>
             </div>
         </div>
-        <button wire:click="followUser" class="btn btn-sm @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
-            <i class="fas fa-sm @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
+        <button wire:click="followUser" class="btn btn-sm @if(!in_array(auth()->user()->id, $this->followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
+            <i class="fas fa-sm @if(!in_array(auth()->user()->id, $this->followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
         </button>
     </div>
 </div>

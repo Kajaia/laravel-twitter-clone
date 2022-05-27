@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Requests\TweetRequest;
 use App\Models\Category;
 use App\Models\Tweet;
 use App\Services\UserService;
@@ -13,21 +14,20 @@ class CreateTweet extends Component
     public $category_id;
 
     protected $listeners = [
-        'submitCategory' => 'render',
-        'deleteCategory' => 'render',
-        'deleteCategory' => 'mount',
-        'createTweet' => 'mount'
-    ];
-
-    protected $rules = [
-        'content' => 'required|max:140',
-        'category_id' => 'required'
+        'submitCategory' => '$refresh',
+        'deleteCategory' => '$refresh',
+        'createTweet' => '$refresh'
     ];
 
     public function mount() 
     {
         $this->category_id = Category::where('user_id', auth()->user()->id)
             ->first()->id ?? null;
+    }
+
+    public function rules(): array
+    {
+        return (new TweetRequest)->rules();
     }
 
     public function updated($propertyName) 
@@ -59,12 +59,15 @@ class CreateTweet extends Component
         $this->emit('deleteCategory');
     }
 
+    public function getCategoriesProperty()
+    {
+        return Category::where('user_id', auth()->user()->id)
+            ->orderBy('id', 'asc')
+            ->get();
+    }
+
     public function render()
     {
-        return view('livewire.create-tweet', [
-            'categories' => Category::where('user_id', auth()->user()->id)
-                ->orderBy('id', 'asc')
-                ->get()
-        ]);
+        return view('livewire.create-tweet');
     }
 }

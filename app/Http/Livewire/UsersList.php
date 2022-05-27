@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Follower;
 use App\Services\UserService;
 use Livewire\Component;
 
@@ -17,10 +16,13 @@ class UsersList extends Component
         $this->emit('userFollow');
     }
 
+    public function getFollowersProperty()
+    {
+        return $this->user->followers()->where('followed_id', $this->user->id);
+    }
+
     public function render()
     {
-        return view('livewire.users-list', [
-            'followers' => Follower::where('followed_id', $this->user->id)
-        ]);
+        return view('livewire.users-list');
     }
 }

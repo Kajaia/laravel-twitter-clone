@@ -12,9 +12,9 @@ class UserProfile extends Component
     public $user;
 
     protected $listeners = [
-        'profileUserFollow' => 'render',
-        'userFollow' => 'render',
-        'followUserList' => 'render'
+        'profileUserFollow' => '$refresh',
+        'userFollow' => '$refresh',
+        'followUserList' => '$refresh'
     ];
 
     public function profileUserFollow(UserService $service) 
@@ -22,12 +22,23 @@ class UserProfile extends Component
         $service->followUser($this->user);
     }
 
+    public function getFollowersProperty()
+    {
+        return Follower::where('followed_id', $this->user->id)->count();
+    }
+
+    public function getFollowingProperty()
+    {
+        return Follower::where('follower_id', $this->user->id)->count();
+    }
+
+    public function getTweetsCountProperty()
+    {
+        return Tweet::where('user_id', $this->user->id)->count();
+    }
+
     public function render()
     {
-        return view('livewire.user-profile', [
-            'followers' => Follower::where('followed_id', $this->user->id),
-            'following' => Follower::where('follower_id', $this->user->id),
-            'tweetsCount' => Tweet::where('user_id', $this->user->id)->count()
-        ]);
+        return view('livewire.user-profile');
     }
 }

@@ -16,8 +16,8 @@ class TweetList extends Component
     public $perPageReplies = 3;
 
     protected $listeners = [
-        'storeReply' => 'render',
-        'perPageRepliesIncrease' => 'render'
+        'storeReply' => '$refresh',
+        'perPageRepliesIncrease' => '$refresh'
     ];
 
     protected $rules = [
@@ -79,15 +79,30 @@ class TweetList extends Component
         $this->perPageReplies += 3;
     }
 
+    public function getLikesProperty()
+    {
+        return Like::where('tweet_id', $this->tweet->id);
+    }
+
+    public function getFavouritesProperty()
+    {
+        return Favourite::where('tweet_id', $this->tweet->id);
+    }
+
+    public function getRepliesProperty()
+    {
+        return Reply::where('tweet_id', $this->tweet->id)
+            ->orderBy('created_at', 'desc')
+            ->cursorPaginate($this->perPageReplies);
+    }
+
+    public function getRepliesCountProperty()
+    {
+        return Reply::where('tweet_id', $this->tweet->id)->count();
+    }
+
     public function render()
     {
-        return view('livewire.tweet-list', [
-            'likes' => Like::where('tweet_id', $this->tweet->id),
-            'favourites' => Favourite::where('tweet_id', $this->tweet->id),
-            'replies' => Reply::where('tweet_id', $this->tweet->id)
-                ->orderBy('created_at', 'desc')
-                ->cursorPaginate($this->perPageReplies),
-            'repliesCount' => Reply::where('tweet_id', $this->tweet->id)->count()
-        ]);
+        return view('livewire.tweet-list');
     }
 }

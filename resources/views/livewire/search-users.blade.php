@@ -4,7 +4,7 @@
         <input type="text" class="form-control rounded-3 my-2" wire:model.debounce.500ms="search" placeholder="Ex: John Doe">
         @if(strlen($search) >= 3)
         <div>
-            @foreach($users as $user)
+            @foreach($this->users as $user)
             <div class="d-flex align-items-center gap-3 py-2 @if(!$loop->last) border-bottom @endif">
                 <a href="{{ route('profile', $user->slug) }}">
                     @if($user->pic)
@@ -28,7 +28,7 @@
             @endforeach
         </div>
         @endif
-        @if(!$users->count() && $search !== null)
+        @if(!$this->users->count() && $search !== null)
             <p class="text-center mt-1">
                 User with name <strong>{{ $search }}</strong> was not found!
             </p>
