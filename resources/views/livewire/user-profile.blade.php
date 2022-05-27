@@ -38,9 +38,9 @@
                 <div class="profile-follow">
                     @auth
                         @if($user->id !== auth()->user()->id)
-                        <button wire:click="profileUserFollow" class="mb-2 btn btn-sm @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
-                            <i class="fas fa-sm me-1 @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
-                            @if(!in_array(auth()->user()->id, $followers->pluck('follower_id')->toArray()))
+                        <button wire:click="profileUserFollow" class="mb-2 btn btn-sm @if(!in_array(auth()->user()->id, $this->followers->pluck('follower_id')->toArray())) btn-primary @else btn-secondary @endif px-3">
+                            <i class="fas fa-sm me-1 @if(!in_array(auth()->user()->id, $this->followers->pluck('follower_id')->toArray())) fa-user-plus @else fa-user-minus @endif"></i>
+                            @if(!in_array(auth()->user()->id, $this->followers->pluck('follower_id')->toArray()))
                                 Follow
                             @else
                                 Unfollow
@@ -50,10 +50,10 @@
                     @endauth
                     <div class="d-flex align-items-start justify-content-between gap-3">
                         <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'following']) }}">
-                            <strong>{{ $this->following }}</strong> Following
+                            <strong>{{ $this->following->count() }}</strong> Following
                         </a>
                         <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'followers']) }}">
-                            <strong>{{ $this->followers }}</strong> Followers
+                            <strong>{{ $this->followers->count() }}</strong> Followers
                         </a>
                     </div>
                 </div>

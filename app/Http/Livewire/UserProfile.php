@@ -24,12 +24,12 @@ class UserProfile extends Component
 
     public function getFollowersProperty()
     {
-        return Follower::where('followed_id', $this->user->id)->count();
+        return Follower::where('followed_id', $this->user->id);
     }
 
     public function getFollowingProperty()
     {
-        return Follower::where('follower_id', $this->user->id)->count();
+        return Follower::where('follower_id', $this->user->id);
     }
 
     public function getTweetsCountProperty()

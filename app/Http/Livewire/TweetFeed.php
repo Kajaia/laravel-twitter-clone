@@ -20,7 +20,6 @@ class TweetFeed extends Component
     protected $listeners = [
         'createTweet' => '$refresh',
         'perPageIncrease' => '$refresh',
-        'userFollow' => '$refresh',
         'deleteTweet' => '$refresh',
         'deleteCategory' => '$refresh',
         'userFollow' => '$refresh'
