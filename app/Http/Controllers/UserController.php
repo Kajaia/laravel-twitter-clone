@@ -18,9 +18,7 @@ class UserController extends Controller
 
     public function profile($slug) 
     {
-        return view('profile', [
-            'user' => User::where('slug', $slug)->first()
-        ]);
+        return view('profile', ['user' => User::where('slug', $slug)->first()]);
     }
 
     public function update(UserUpdateRequest $request, $slug) 

@@ -13,7 +13,9 @@ class UpdateUserAction {
     {
         $user = User::where('slug', $slug)->first();
 
-        $request->file('pic') ? $pic = $request->file('pic')->store('images', 'public') : $pic = $user->pic;
+        $request->file('pic') 
+            ? $pic = $request->file('pic')->store('images', 'public') 
+            : $pic = $user->pic;
 
         $user->update([
             'name' => $request->name,
