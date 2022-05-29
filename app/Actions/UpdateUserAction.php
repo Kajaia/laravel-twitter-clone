@@ -14,17 +14,16 @@ class UpdateUserAction {
     {
         $user = User::where('slug', $slug)->first();
 
-        // Profile image upload
-        $request->file('pic') 
-            ? $pic = $request->file('pic')->store('images', 'public') 
-            : $pic = $user->pic;
-
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->has('password') 
+                ? Hash::make($request->password) 
+                : $user->password,
             'slug' => Str::slug($request->slug, '-'),
-            'pic' => $pic,
+            'pic' => $request->file('pic') 
+                ? $request->file('pic')->store('images', 'public') 
+                : $user->pic,
             'bio' => $request->bio,
             'visibility' => $request->visibility
         ]);
