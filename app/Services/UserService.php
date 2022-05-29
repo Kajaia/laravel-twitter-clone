@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\UserResource;
 use App\Models\Follower;
 use App\Models\User;
 use App\Notifications\UserNotification;
@@ -20,17 +21,17 @@ class UserService {
     // Get users that are followed by provided user
     public function following() 
     {
-        return User::whereHas('followers', function($query) {
-            $query->where('follower_id', $this->request->user()->id);
-        });
+        return new UserResource(User::whereHas('followers', function($query) {
+                $query->where('follower_id', $this->request->user()->id);
+            }));
     }
 
     // Get followers of the provided user
     public function followers() 
     {
-        return User::whereHas('following', function($query) {
-            $query->where('followed_id', $this->request->user()->id);
-        }); 
+        return new UserResource(User::whereHas('following', function($query) {
+                $query->where('followed_id', $this->request->user()->id);
+            })); 
     }
 
     // Check if auth user already followed provided user

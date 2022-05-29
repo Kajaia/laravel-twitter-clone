@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class UserController extends Controller
     // Get auth user
     public function me() 
     {
-        return User::findOrFail($this->request->user()->id);
+        return new UserResource(User::findOrFail($this->request->user()->id));
     }
 
     // Show following users list
