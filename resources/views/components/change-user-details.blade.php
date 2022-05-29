@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-6 form-group mt-2 mb-3">
                 <label class="form-label" for="password">Password</label>
-                <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Ex: Passw@rd123" autocomplete="new-password">
+                <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Ex: Passw@rd123">
 
                 @error('password')
                 <div class="invalid-feedback">
@@ -38,7 +38,7 @@
             </div>
             <div class="col-md-6 form-group mt-2 mb-3">
                 <label class="form-label" for="password_confirmation">Repeat password</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Ex: Passw@rd123" autocomplete="new-password">
+                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Ex: Passw@rd123">
 
                 @error('password_confirmation')
                 <div class="invalid-feedback">

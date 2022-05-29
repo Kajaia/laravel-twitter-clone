@@ -17,7 +17,7 @@ class UpdateUserAction {
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->has('password') 
+            'password' => $request->password 
                 ? Hash::make($request->password) 
                 : $user->password,
             'slug' => Str::slug($request->slug, '-'),
