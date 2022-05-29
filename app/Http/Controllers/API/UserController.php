@@ -28,12 +28,12 @@ class UserController extends Controller
     // Show following users list
     public function following() 
     {
-        return $this->service->following($this->request)->cursorPaginate();
+        return UserResource::collection($this->service->following($this->request)->cursorPaginate());
     }
 
     // Show followers list
     public function follows() 
     {
-        return $this->service->followers($this->request)->cursorPaginate();
+        return UserResource::collection($this->service->followers($this->request)->cursorPaginate());
     }
 }

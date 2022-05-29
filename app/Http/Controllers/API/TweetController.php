@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TweetRequest;
+use App\Http\Resources\TweetResource;
 use App\Models\Tweet;
 use App\Services\TweetService;
 use Illuminate\Http\Request;
@@ -22,19 +23,19 @@ class TweetController extends Controller
     // View user tweets
     public function tweets()
     {
-        return Tweet::where('user_id', $this->request->user()->id)->cursorPaginate();
+        return TweetResource::collection(Tweet::where('user_id', $this->request->user()->id)->cursorPaginate());
     }
 
     // Make a tweet
     public function store(TweetRequest $request)
     {
-        return $this->service->createTweet($request);
+        return new TweetResource($this->service->createTweet($request));
     }
 
     // Get auth user tweet by id
     public function get($tweet_id) 
     {
-        return $this->service->getUserTweet($tweet_id);
+        return new TweetResource($this->service->getUserTweet($tweet_id));
     }
 
     // Get tweet replies
