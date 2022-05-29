@@ -18,16 +18,19 @@ class UserController extends Controller
         $this->service = $service;
     }
 
+    // Get auth user
     public function me() 
     {
         return User::findOrFail($this->request->user()->id);
     }
 
+    // Show following users list
     public function following() 
     {
         return $this->service->following($this->request)->cursorPaginate();
     }
 
+    // Show followers list
     public function follows() 
     {
         return $this->service->followers($this->request)->cursorPaginate();

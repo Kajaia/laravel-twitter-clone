@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class EmailVerificationController extends Controller
 {
+    // Verify email
     public function verify(EmailVerificationRequest $request) 
     {
         $request->fulfill();
@@ -14,11 +15,7 @@ class EmailVerificationController extends Controller
         return redirect('/')->with('message', 'Email verified successfully!');
     }
 
-    public function notice() 
-    {
-        return view('auth.verify');
-    }
-
+    // Resend email verification link
     public function resend(Request $request) 
     {
         $request->user()->sendEmailVerificationNotification();

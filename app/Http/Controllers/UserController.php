@@ -16,11 +16,13 @@ class UserController extends Controller
         $this->action = $action;
     }
 
+    // Get user profile by slug
     public function profile($slug) 
     {
         return view('profile', ['user' => User::where('slug', $slug)->first()]);
     }
 
+    // Update user profile
     public function update(UserUpdateRequest $request, $slug) 
     {
         $this->action->handle($request, $slug);

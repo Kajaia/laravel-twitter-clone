@@ -6,6 +6,7 @@ use App\Models\Tweet;
 
 class TweetController extends Controller
 {
+    // Get tweet by id
     public function __invoke($id)
     {
         return view('tweet', ['tweet' => Tweet::findOrFail($id)]);

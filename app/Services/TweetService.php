@@ -20,6 +20,7 @@ class TweetService {
         $this->request = $request;
     }
 
+    // Create tweet
     public function createTweet(TweetRequest $request) 
     {
         $tweet = Tweet::create([
@@ -31,6 +32,7 @@ class TweetService {
         return $tweet;
     }
 
+    // Get specific user tweet by id
     public function getUserTweet($tweet_id) 
     {
         return Tweet::where('id', $tweet_id)
@@ -38,6 +40,7 @@ class TweetService {
             ->first();
     }
 
+    // Get specific tweet replies
     public function getTweetReplies($tweet_id) 
     {
         return Reply::where('tweet_id', $tweet_id)
@@ -46,6 +49,7 @@ class TweetService {
             });
     }
 
+    // Reply on a tweet
     public function replyTweet($tweet_id) 
     {
         $reply = Reply::create([
@@ -57,11 +61,13 @@ class TweetService {
         return $reply;
     }
 
+    // Check if tweet is liked by this user
     public function isLiked($userId, $tweet_id) 
     {
         return in_array($userId, Tweet::findOrFail($tweet_id)->likes->pluck('user_id')->toArray());
     }
 
+    // Like a tweet
     public function likeTweet($tweet_id) 
     {
         if(!$this->isLiked($this->request->user()->id, $tweet_id)) {
@@ -76,6 +82,7 @@ class TweetService {
         return $like;
     }
 
+    // Dislike a tweet
     public function unlikeTweet($tweet_id) 
     {
         if($this->isLiked($this->request->user()->id, $tweet_id)) {
@@ -89,6 +96,7 @@ class TweetService {
         return response()->json($unlike);
     }
 
+    // Like or dislike a tweet
     public function likeUnlikeTweet(Tweet $tweet)
     {
         if(!$this->isLiked(auth()->user()->id, $tweet->id)) {
@@ -111,26 +119,31 @@ class TweetService {
         }
     }
 
+    // Check if provided user is author of this tweet
     public function isAuthor($userId) 
     {
         return $userId === auth()->user()->id;
     }
 
+    // Send notification to a tweet author that someone replied on his/her tweet
     public function replyOnTweetNotification(Tweet $tweet)
     {
         Notification::send($tweet->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.', $tweet->id));
     }
 
+    // Send notification to a tweet author that someone liked his/her tweet
     public function likeTweetNotification(Tweet $tweet, $str)
     {
         Notification::send($tweet->user, new UserNotification(auth()->user(), auth()->user()->name . ' ' . $str . ' your tweet.', $tweet->id));
     }
 
+    // Check if user has already saved provided tweet on his/her favourites list
     public function isFavourited(Tweet $tweet)
     {
         return in_array(auth()->user()->id, $tweet->favourites->pluck('user_id')->toArray());
     }
 
+    // Save tweet to the favourites list
     public function addFavourites(Tweet $tweet)
     {
         if(!$this->isFavourited($tweet)) {

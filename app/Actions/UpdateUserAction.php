@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UpdateUserAction {
 
+    // Update user profile details
     public function handle(UserUpdateRequest $request, $slug) 
     {
         $user = User::where('slug', $slug)->first();
 
+        // Profile image upload
         $request->file('pic') 
             ? $pic = $request->file('pic')->store('images', 'public') 
             : $pic = $user->pic;

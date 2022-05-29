@@ -17,6 +17,7 @@ class UserService {
         $this->request = $request;
     }
 
+    // Get users that are followed by provided user
     public function following() 
     {
         return User::whereHas('followers', function($query) {
@@ -24,6 +25,7 @@ class UserService {
         });
     }
 
+    // Get followers of the provided user
     public function followers() 
     {
         return User::whereHas('following', function($query) {
@@ -31,21 +33,25 @@ class UserService {
         }); 
     }
 
+    // Check if auth user already followed provided user
     public function isFollowed(User $user)
     {
         return in_array(auth()->user()->id, $user->followers->pluck('follower_id')->toArray());
     }
 
+    // Send notification to the user if someone follows/unfollows him/her
     public function followUserNotification(User $user, $str)
     {
         Notification::send($user, new UserNotification(auth()->user(), auth()->user()->name.' has ' . $str . ' you.', null));
     }
 
+    // Send notification to the followers when provided user makes a tweet
     public function userTweetedNotification($tweet)
     {
         Notification::send($this->followers()->get(), new UserNotification(auth()->user(), auth()->user()->name.' has tweeted.', $tweet->id));
     }
 
+    // Follow or unfollow a user
     public function followUser(User $user)
     {
         if(!$this->isFollowed($user)) {

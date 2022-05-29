@@ -19,36 +19,43 @@ class TweetController extends Controller
         $this->service = $service;
     }
 
+    // View user tweets
     public function tweets()
     {
         return Tweet::where('user_id', $this->request->user()->id)->cursorPaginate();
     }
 
+    // Make a tweet
     public function store(TweetRequest $request)
     {
         return $this->service->createTweet($request);
     }
 
+    // Get auth user tweet by id
     public function get($tweet_id) 
     {
         return $this->service->getUserTweet($tweet_id);
     }
 
+    // Get tweet replies
     public function replies($tweet_id) 
     {
         return $this->service->getTweetReplies($tweet_id)->cursorPaginate();
     }
 
+    // Like tweet
     public function like($tweet_id) 
     {
         return $this->service->likeTweet($tweet_id);
     }
 
+    // Dislike tweet
     public function unlike($tweet_id) 
     {
         return $this->service->unlikeTweet($tweet_id);
     }
 
+    // Reply on a tweet
     public function reply($tweet_id) 
     {
         return $this->service->replyTweet($tweet_id);
