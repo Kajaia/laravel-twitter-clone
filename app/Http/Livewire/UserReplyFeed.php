@@ -25,7 +25,11 @@ class UserReplyFeed extends Component
     public function getTweetsProperty()
     {
         return Tweet::with([
-                'user'
+                'user',
+                'category',
+                'likes',
+                'replies',
+                'favourites'
             ])
                 ->whereHas('replies', function($query) {
                     $query->where('user_id', $this->userId);

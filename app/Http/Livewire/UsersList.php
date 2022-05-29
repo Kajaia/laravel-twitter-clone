@@ -13,12 +13,9 @@ class UsersList extends Component
     {
         $service->followUser($this->user);
 
-        $this->emit('userFollow');
-    }
+        $this->user = $this->user->refresh();
 
-    public function getFollowersProperty()
-    {
-        return $this->user->followers()->where('followed_id', $this->user->id);
+        $this->emit('userFollow');
     }
 
     public function render()

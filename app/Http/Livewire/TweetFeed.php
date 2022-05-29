@@ -49,7 +49,10 @@ class TweetFeed extends Component
     public function getTweetsProperty()
     {
         return Tweet::with([
-                'user'
+                'user',
+                'category',
+                'likes',
+                'favourites'
             ])
                 ->whereIn('user_id', [...$this->ids, $this->userId])
                 ->when($this->category_id, function($query) {

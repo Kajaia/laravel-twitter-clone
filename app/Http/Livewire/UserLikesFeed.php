@@ -25,7 +25,11 @@ class UserLikesFeed extends Component
     public function getTweetsProperty()
     {
         return Tweet::with([
-                'user'
+                'user',
+                'category',
+                'likes',
+                'replies',
+                'favourites'
             ])
                 ->whereHas('likes', function($query) {
                     $query->where('user_id', $this->userId);

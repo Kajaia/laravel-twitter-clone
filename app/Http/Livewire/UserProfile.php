@@ -20,21 +20,8 @@ class UserProfile extends Component
     public function profileUserFollow(UserService $service) 
     {
         $service->followUser($this->user);
-    }
 
-    public function getFollowersProperty()
-    {
-        return Follower::where('followed_id', $this->user->id);
-    }
-
-    public function getFollowingProperty()
-    {
-        return Follower::where('follower_id', $this->user->id);
-    }
-
-    public function getTweetsCountProperty()
-    {
-        return Tweet::where('user_id', $this->user->id)->count();
+        $this->user = $this->user->refresh();
     }
 
     public function render()

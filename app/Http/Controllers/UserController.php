@@ -19,7 +19,11 @@ class UserController extends Controller
     // Get user profile by slug
     public function profile($slug) 
     {
-        return view('profile', ['user' => User::where('slug', $slug)->first()]);
+        return view('profile', [
+            'user' => User::where('slug', $slug)
+                ->with(['tweets', 'followers', 'following'])
+                ->first()
+        ]);
     }
 
     // Update user profile

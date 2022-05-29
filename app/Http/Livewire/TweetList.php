@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Favourite;
-use App\Models\Like;
 use App\Models\Reply;
 use App\Models\Tweet;
 use App\Services\TweetService;
@@ -40,6 +38,8 @@ class TweetList extends Component
     {
         Reply::findOrFail($replyId)->delete();
 
+        $this->tweet = $this->tweet->refresh();
+
         $this->emit('deleteReply');
     }
 
@@ -57,6 +57,8 @@ class TweetList extends Component
             $service->replyOnTweetNotification($this->tweet);
         }
 
+        $this->tweet = $this->tweet->refresh();
+
         $this->reset('content');
     }
 
@@ -64,12 +66,16 @@ class TweetList extends Component
     {
         $service->likeUnlikeTweet($this->tweet);
 
+        $this->tweet = $this->tweet->refresh();
+
         $this->emit('likeTweet');
     }
 
     public function addToFavourites(TweetService $service) 
     {
         $service->addFavourites($this->tweet);
+
+        $this->tweet = $this->tweet->refresh();
 
         $this->emit('addToFavourites');
     }
@@ -79,26 +85,12 @@ class TweetList extends Component
         $this->perPageReplies += 3;
     }
 
-    public function getLikesProperty()
-    {
-        return Like::where('tweet_id', $this->tweet->id);
-    }
-
-    public function getFavouritesProperty()
-    {
-        return Favourite::where('tweet_id', $this->tweet->id);
-    }
-
     public function getRepliesProperty()
     {
-        return Reply::where('tweet_id', $this->tweet->id)
+        return Reply::with('user')
+            ->where('tweet_id', $this->tweet->id)
             ->orderBy('created_at', 'desc')
             ->cursorPaginate($this->perPageReplies);
-    }
-
-    public function getRepliesCountProperty()
-    {
-        return Reply::where('tweet_id', $this->tweet->id)->count();
     }
 
     public function render()
