@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Http\Requests\TweetRequest;
 use App\Models\Favourite;
 use App\Models\Like;
-use App\Models\Reply;
 use App\Models\Tweet;
 use App\Notifications\UserNotification;
 use Illuminate\Http\Request;
@@ -43,18 +42,16 @@ class TweetService {
     // Get specific tweet replies
     public function getTweetReplies($tweet_id) 
     {
-        return Reply::where('tweet_id', $tweet_id)
-            ->whereHas('tweet', function($query) {
-                $query->where('user_id', $this->request->user()->id);
-            });
+        return Tweet::where('tweet_id', $tweet_id);
     }
 
     // Reply on a tweet
-    public function replyTweet($tweet_id) 
+    public function replyTweet($tweet_id, $category_id) 
     {
-        $reply = Reply::create([
+        $reply = Tweet::create([
             'content' => $this->request->content,
             'tweet_id' => $tweet_id,
+            'category_id' => $category_id,
             'user_id' => $this->request->user()->id
         ]);
 

@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
         Category::factory(300)->create();
         Tweet::factory(200)->create();
-        Reply::factory(300)->create();
         Like::factory(300)->create();
         Follower::factory(300)->create();
         Favourite::factory(200)->create();

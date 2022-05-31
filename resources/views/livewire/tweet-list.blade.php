@@ -34,7 +34,14 @@
                     </ul>
                 </div>
         </div>
-        <p class="mt-3 mb-0">{!! $tweet->content !!}</p>
+        <p class="mt-3 mb-0 text-secondary fst-italic">
+            @if($tweet->tweet_id)
+                Replied on 
+                <a href="{{ route('profile', $tweet->reply->user->slug) }}" class="text-decoration-none">{{ '@' . $tweet->reply->user->name }}</a>'s 
+                <a href="{{ route('specific.tweet', $tweet->reply->id) }}" class="text-decoration-none">tweet</a>
+            @endif
+            <p class="m-0">{!! $tweet->content !!}</p>
+        </p>
         <div class="mt-3 d-flex align-items-center justify-content-between">
             @auth
                 <div>

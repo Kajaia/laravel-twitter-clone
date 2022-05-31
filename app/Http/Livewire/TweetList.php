@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Reply;
 use App\Models\Tweet;
 use App\Services\TweetService;
 use Livewire\Component;
@@ -36,7 +35,7 @@ class TweetList extends Component
 
     public function deleteReply($replyId) 
     {
-        Reply::findOrFail($replyId)->delete();
+        Tweet::findOrFail($replyId)->delete();
 
         $this->tweet = $this->tweet->refresh();
 
@@ -47,9 +46,10 @@ class TweetList extends Component
     {
         $this->validate();
 
-        Reply::create([
+        Tweet::create([
             'content' => $this->content,
             'tweet_id' => $this->tweet->id,
+            'category_id' => $this->tweet->category->id,
             'user_id' => auth()->user()->id
         ]);
 
@@ -87,7 +87,7 @@ class TweetList extends Component
 
     public function getRepliesProperty()
     {
-        return Reply::with('user')
+        return Tweet::with('user')
             ->where('tweet_id', $this->tweet->id)
             ->orderBy('created_at', 'desc')
             ->cursorPaginate($this->perPageReplies);

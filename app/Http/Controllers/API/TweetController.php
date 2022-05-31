@@ -59,6 +59,6 @@ class TweetController extends Controller
     // Reply on a tweet
     public function reply($tweet_id) 
     {
-        return $this->service->replyTweet($tweet_id);
+        return $this->service->replyTweet($tweet_id, Tweet::findOrFail($tweet_id)->category_id);
     }
 }

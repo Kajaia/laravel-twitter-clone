@@ -12,15 +12,20 @@ class Tweet extends Model
     protected $fillable = [
         'content',
         'user_id',
-        'category_id'
+        'category_id',
+        'tweet_id'
     ];
 
     public function user() {
         return $this->belongsTo(User::class);
     }
 
+    public function reply() {
+        return $this->belongsTo(Tweet::class, 'tweet_id');
+    }
+
     public function replies() {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Tweet::class, 'tweet_id');
     }
 
     public function likes() {

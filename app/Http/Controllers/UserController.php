@@ -22,7 +22,7 @@ class UserController extends Controller
         return view('profile', [
             'user' => User::where('slug', $slug)
                 ->with(['tweets', 'followers', 'following'])
-                ->first()
+                ->first() ?? abort(404)
         ]);
     }
 
