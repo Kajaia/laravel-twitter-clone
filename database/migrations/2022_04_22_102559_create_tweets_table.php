@@ -20,6 +20,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('category_id')
+                ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
             $table->timestamps();

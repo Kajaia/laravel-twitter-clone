@@ -19,12 +19,6 @@ class CreateTweet extends Component
         'createTweet' => '$refresh'
     ];
 
-    public function mount() 
-    {
-        $this->category_id = Category::where('user_id', auth()->user()->id)
-            ->first()->id ?? null;
-    }
-
     public function rules(): array
     {
         return (new TweetRequest)->rules();

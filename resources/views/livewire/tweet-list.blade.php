@@ -16,7 +16,10 @@
                         </h6>
                     </a>
                     <small class="text-secondary">
-                        {{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }} in {{ $tweet->category->title }}
+                        {{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }} 
+                        @if($tweet->category_id)
+                        in {{ $tweet->category->title }}
+                        @endif
                     </small>
                 </div>
             </div>
