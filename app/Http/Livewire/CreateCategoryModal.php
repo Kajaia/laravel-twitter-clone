@@ -27,7 +27,7 @@ class CreateCategoryModal extends Component
 
         $this->dispatchBrowserEvent('close:modal');
 
-        $this->title = '';
+        $this->reset('title');
 
         $this->emit('submitCategory');
     }

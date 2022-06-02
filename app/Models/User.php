@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,5 +77,21 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getBioAttribute($value) {
         return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" class="text-decoration-none" target="_blank">$1</a>', $value);
+    }
+
+    public function getFollowingUsersCount()
+    {
+        return $this->whereHas('followers', function($query) {
+                $query->where('follower_id', $this->id)
+                    ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            })->count();
+    }
+
+    public function getFollowersCount()
+    {
+        return $this->whereHas('following', function($query) {
+                $query->where('followed_id', $this->id)
+                    ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            })->count();
     }
 }

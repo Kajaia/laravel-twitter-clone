@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Follower;
-use App\Models\Tweet;
 use App\Services\UserService;
 use Livewire\Component;
 
