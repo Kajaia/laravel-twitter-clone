@@ -94,4 +94,15 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
             })->count();
     }
+
+    public function getFollowingUsersNewTweets()
+    {
+        return Tweet::whereHas('user', function($query) {
+                $query->whereHas('followers', function($query) {
+                    $query->where('follower_id', $this->id);
+                });
+            })
+                ->whereBetween('created_at', [Carbon::now()->subDay(), Carbon::now()])
+                ->get();
+    }
 }
