@@ -49,7 +49,7 @@ class TweetList extends Component
         Tweet::create([
             'content' => $this->content,
             'tweet_id' => $this->tweet->id,
-            'category_id' => $this->tweet->category->id,
+            'category_id' => $this->tweet->category->id ?? null,
             'user_id' => auth()->user()->id
         ]);
 
