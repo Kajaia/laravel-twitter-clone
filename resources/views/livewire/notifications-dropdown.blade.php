@@ -19,19 +19,21 @@
         </div>
         @foreach(auth()->user()->notifications as $notification)
             <li>
-                <a class="dropdown-item d-flex align-items-center justify-content-between gap-3" href="{{ $notification->data['tweet_id'] ? route('specific.tweet', $notification->data['tweet_id']) : '#!' }}">
-                    <div>
-                        <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ $notification->data['content'] }}</small>
-                        <div class="m-0 d-flex align-items-center justify-content-between">
-                            <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
+                <span class="dropdown-item d-flex align-items-center justify-content-between gap-3">
+                    <a class="dropdown-item" href="{{ $notification->data['tweet_id'] ? route('specific.tweet', $notification->data['tweet_id']) : '#!' }}">
+                        <div>
+                            <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ $notification->data['content'] }}</small>
+                            <div class="m-0 d-flex align-items-center justify-content-between">
+                                <small class="{{ $notification->read_at ? 'text-secondary' : 'fw-bold' }}">{{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}</small>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     @if(!$notification->read_at)
                     <button wire:click="markAsRead('{{ $notification->id }}')" class="btn btn-sm btn-light rounded-pill">
                         <i class="fas fa-check fa-sm"></i>
                     </button>
                     @endif
-                </a>
+                </span>
             </li>
         @endforeach
     </ul>
