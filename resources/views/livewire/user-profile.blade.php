@@ -53,7 +53,12 @@
                             <strong>{{ $this->user->following->count() }}</strong> Following
                         </a>
                         <a class="text-decoration-none text-secondary mb-0" href="{{ route('profile', [$user->slug, 'tab' => 'followers']) }}">
-                            <strong>{{ $this->user->followers->count() }}</strong> Followers
+                            <strong>{{ $this->user->followers->count() }}</strong> 
+                            @if($this->user->followers->count() > 1)
+                                Followers
+                            @else
+                                Follower
+                            @endif
                         </a>
                     </div>
                 </div>
