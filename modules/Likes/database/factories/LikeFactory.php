@@ -1,14 +1,16 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Likes\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Likes\app\Models\Like;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Like>
  */
 class LikeFactory extends Factory
 {
+    protected $model = Like::class;
     /**
      * Define the model's default state.
      *

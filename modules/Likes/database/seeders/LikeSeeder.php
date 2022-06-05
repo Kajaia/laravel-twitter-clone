@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Modules\Likes\database\seeders;
 
-use App\Models\Like;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Likes\app\Models\Like;
 
 class LikeSeeder extends Seeder
 {

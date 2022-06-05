@@ -6,6 +6,7 @@ use App\Models\Tweet;
 use App\Services\TweetService;
 use Livewire\Component;
 use Modules\Favourites\app\Services\FavouriteService;
+use Modules\Likes\app\Services\LikeService;
 
 class TweetList extends Component
 {
@@ -63,7 +64,7 @@ class TweetList extends Component
         $this->reset('content');
     }
 
-    public function likeTweet(TweetService $service) 
+    public function likeTweet(LikeService $service) 
     {
         $service->likeUnlikeTweet($this->tweet);
 

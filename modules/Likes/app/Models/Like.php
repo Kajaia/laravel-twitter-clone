@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Likes\app\Models;
 
+use App\Models\Tweet;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Likes\database\factories\LikeFactory;
 
 class Like extends Model
 {
@@ -20,5 +23,10 @@ class Like extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function newFactory()
+    {
+        return LikeFactory::new();
     }
 }
