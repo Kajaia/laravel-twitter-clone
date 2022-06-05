@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Modules\Favourites\database\seeders;
 
-use App\Models\Favourite;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Favourites\app\Models\Favourite;
 
 class FavouriteSeeder extends Seeder
 {

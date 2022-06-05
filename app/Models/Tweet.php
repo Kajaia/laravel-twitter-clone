@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Categories\app\Models\Category;
+use Modules\Favourites\app\Models\Favourite;
 
 class Tweet extends Model
 {

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Modules\Categories\database\seeders\CategorySeeder;
+use Modules\Favourites\database\seeders\FavouriteSeeder;
 
 class DatabaseSeeder extends Seeder
 {

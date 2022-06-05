@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Tweet;
 use App\Services\TweetService;
 use Livewire\Component;
+use Modules\Favourites\app\Services\FavouriteService;
 
 class TweetList extends Component
 {
@@ -71,7 +72,7 @@ class TweetList extends Component
         $this->emit('likeTweet');
     }
 
-    public function addToFavourites(TweetService $service) 
+    public function addToFavourites(FavouriteService $service) 
     {
         $service->addFavourites($this->tweet);
 

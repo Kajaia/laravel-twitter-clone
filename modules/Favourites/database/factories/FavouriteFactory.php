@@ -1,14 +1,16 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Favourites\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Favourites\app\Models\Favourite;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Favourite>
  */
 class FavouriteFactory extends Factory
 {
+    protected $model = Favourite::class;
     /**
      * Define the model's default state.
      *
