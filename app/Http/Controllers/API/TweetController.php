@@ -8,6 +8,7 @@ use App\Http\Resources\TweetResource;
 use App\Models\Tweet;
 use App\Services\TweetService;
 use Illuminate\Http\Request;
+use Modules\Likes\app\Services\LikeService;
 
 class TweetController extends Controller
 {
@@ -45,15 +46,15 @@ class TweetController extends Controller
     }
 
     // Like tweet
-    public function like($tweet_id) 
+    public function like(LikeService $service, $tweet_id) 
     {
-        return $this->service->likeTweet($tweet_id);
+        return $service->likeTweet($tweet_id);
     }
 
     // Dislike tweet
-    public function unlike($tweet_id) 
+    public function unlike(LikeService $service, $tweet_id) 
     {
-        return $this->service->unlikeTweet($tweet_id);
+        return $service->unlikeTweet($tweet_id);
     }
 
     // Reply on a tweet

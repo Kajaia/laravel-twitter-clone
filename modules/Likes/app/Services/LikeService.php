@@ -4,11 +4,19 @@ namespace Modules\Likes\app\Services;
 
 use App\Models\Tweet;
 use App\Notifications\UserNotification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Modules\Likes\app\Models\Like;
 
 class LikeService
 {
+
+    protected Request $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     // Check if tweet is liked by this user
     public function isLiked($userId, $tweet_id) 
