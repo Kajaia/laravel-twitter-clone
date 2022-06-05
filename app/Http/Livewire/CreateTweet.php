@@ -3,10 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Http\Requests\TweetRequest;
-use App\Models\Category;
 use App\Models\Tweet;
 use App\Services\UserService;
 use Livewire\Component;
+use Modules\Categories\app\Models\Category;
 
 class CreateTweet extends Component
 {

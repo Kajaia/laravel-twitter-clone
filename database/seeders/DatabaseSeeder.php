@@ -2,16 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Favourite;
-use App\Models\Follower;
-use App\Models\Like;
-use App\Models\Notification;
-use App\Models\Reply;
-use App\Models\Tweet;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Categories\database\seeders\CategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,11 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(100)->create();
-        Category::factory(300)->create();
-        Tweet::factory(200)->create();
-        Like::factory(300)->create();
-        Follower::factory(300)->create();
-        Favourite::factory(200)->create();
+        $this->call([
+            UserSeeder::class,
+            CategorySeeder::class,
+            TweetSeeder::class,
+            LikeSeeder::class,
+            FollowerSeeder::class,
+            FavouriteSeeder::class
+        ]);
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Categories\app\Models;
 
+use App\Models\Tweet;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Categories\database\factories\CategoryFactory;
 
 class Category extends Model
 {
@@ -20,5 +23,10 @@ class Category extends Model
 
     public function tweets() {
         return $this->hasMany(Tweet::class);
+    }
+
+    protected static function newFactory()
+    {
+        return CategoryFactory::new();
     }
 }

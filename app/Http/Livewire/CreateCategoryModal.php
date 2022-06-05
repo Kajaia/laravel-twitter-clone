@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use Livewire\Component;
+use Modules\Categories\app\Actions\CreateCategoryAction;
 
 class CreateCategoryModal extends Component
 {
@@ -20,10 +20,7 @@ class CreateCategoryModal extends Component
     {
         $this->validate();
 
-        Category::create([
-            'title' => $this->title,
-            'user_id' => auth()->user()->id
-        ]);
+        (new CreateCategoryAction)($this->title);
 
         $this->dispatchBrowserEvent('close:modal');
 
