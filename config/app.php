@@ -171,6 +171,8 @@ return [
         Modules\Favourites\app\Providers\AppServiceProvider::class,
         Modules\Likes\app\Providers\AppServiceProvider::class,
         Modules\Followers\app\Providers\AppServiceProvider::class,
+        Modules\Tweets\app\Providers\AppServiceProvider::class,
+        Modules\Tweets\app\Providers\RouteServiceProvider::class,
 
         /*
          * Application Service Providers...

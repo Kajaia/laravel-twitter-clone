@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Tweets\app\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Categories\app\Models\Category;
 use Modules\Favourites\app\Models\Favourite;
 use Modules\Likes\app\Models\Like;
+use Modules\Tweets\database\factories\TweetFactory;
 
 class Tweet extends Model
 {
@@ -45,5 +47,10 @@ class Tweet extends Model
 
     public function getContentAttribute($value) {
         return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" class="text-decoration-none" target="_blank">$1</a>', $value);
+    }
+
+    protected static function newFactory()
+    {
+        return TweetFactory::new();
     }
 }

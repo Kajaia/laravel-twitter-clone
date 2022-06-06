@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\TweetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,10 +37,7 @@ Route::middleware('auth')->group(function() {
         ->name('update.profile');
 });
 
-// Profile and specific tweet routes
+// Profile route
 Route::middleware('verified-or-guest')->group(function() {
     Route::get('/{slug}', [UserController::class, 'profile'])->name('profile');
-    Route::get('/tweet/{id}', TweetController::class)
-        ->whereNumber('id')
-        ->name('specific.tweet');
 });

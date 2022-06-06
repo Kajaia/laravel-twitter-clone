@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Modules\Tweets\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

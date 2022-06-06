@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Tweet;
-use App\Services\TweetService;
-use App\Services\UserService;
 use Livewire\Component;
-use Modules\Favourites\app\Services\FavouriteService;
+use App\Services\UserService;
+use Modules\Tweets\app\Models\Tweet;
 use Modules\Likes\app\Services\LikeService;
+use Modules\Favourites\app\Services\FavouriteService;
+use Modules\Tweets\app\Services\TweetService;
 
 class TweetList extends Component
 {

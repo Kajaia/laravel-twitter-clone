@@ -2,11 +2,11 @@
 
 namespace Modules\Categories\app\Models;
 
-use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Categories\database\factories\CategoryFactory;
+use Modules\Tweets\app\Models\Tweet;
 
 class Category extends Model
 {

@@ -1,14 +1,16 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Tweets\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Tweets\app\Models\Tweet;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tweet>
  */
 class TweetFactory extends Factory
 {
+    protected $model = Tweet::class;
     /**
      * Define the model's default state.
      *

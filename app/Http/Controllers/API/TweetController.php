@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TweetRequest;
-use App\Http\Resources\TweetResource;
-use App\Models\Tweet;
-use App\Services\TweetService;
 use Illuminate\Http\Request;
 use Modules\Likes\app\Services\LikeService;
+use Modules\Tweets\app\Http\Requests\TweetRequest;
+use Modules\Tweets\app\Http\Resources\TweetResource;
+use Modules\Tweets\app\Models\Tweet;
+use Modules\Tweets\app\Services\TweetService;
 
 class TweetController extends Controller
 {

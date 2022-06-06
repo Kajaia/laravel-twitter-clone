@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Modules\Tweets\database\seeders;
 
-use App\Models\Tweet;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Tweets\app\Models\Tweet;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class TweetSeeder extends Seeder
 {

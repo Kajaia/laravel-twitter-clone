@@ -2,12 +2,12 @@
 
 namespace Modules\Likes\app\Services;
 
-use App\Models\Tweet;
-use App\Notifications\UserNotification;
-use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
+use App\Services\UserService;
 use Modules\Likes\app\Models\Like;
+use Modules\Tweets\app\Models\Tweet;
+use App\Notifications\UserNotification;
+use Illuminate\Support\Facades\Notification;
 
 class LikeService
 {

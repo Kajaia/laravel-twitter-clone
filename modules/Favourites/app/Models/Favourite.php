@@ -2,11 +2,11 @@
 
 namespace Modules\Favourites\app\Models;
 
-use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Favourites\database\factories\FavouriteFactory;
+use Modules\Tweets\app\Models\Tweet;
 
 class Favourite extends Model
 {

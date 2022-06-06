@@ -2,11 +2,11 @@
 
 namespace Modules\Likes\app\Models;
 
-use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Likes\database\factories\LikeFactory;
+use Modules\Tweets\app\Models\Tweet;
 
 class Like extends Model
 {

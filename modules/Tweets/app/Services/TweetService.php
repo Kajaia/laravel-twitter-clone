@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace Modules\Tweets\app\Services;
 
-use App\Http\Requests\TweetRequest;
-use App\Models\Tweet;
 use App\Notifications\UserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Modules\Tweets\app\Http\Requests\TweetRequest;
+use Modules\Tweets\app\Models\Tweet;
 
 class TweetService {
 

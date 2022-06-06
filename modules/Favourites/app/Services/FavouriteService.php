@@ -2,7 +2,7 @@
 
 namespace Modules\Favourites\app\Services;
 
-use App\Models\Tweet;
+use Modules\Tweets\app\Models\Tweet;
 use Modules\Favourites\app\Models\Favourite;
 
 class FavouriteService

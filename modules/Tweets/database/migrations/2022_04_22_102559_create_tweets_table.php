@@ -13,11 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tweets', function (Blueprint $table) {
+        Schema::create('tweets', function (Blueprint $table) {
+            $table->id();
+            $table->string('content');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignId('category_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('cascade');
             $table->foreignId('tweet_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -28,8 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tweets', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tweets');
     }
 };

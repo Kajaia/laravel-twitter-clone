@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Tweet;
 use Livewire\Component;
+use Modules\Tweets\app\Models\Tweet;
 
 class UserReplyFeed extends Component
 {
