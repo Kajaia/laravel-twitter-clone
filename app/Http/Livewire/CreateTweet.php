@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Requests\TweetRequest;
-use App\Models\Category;
-use App\Models\Tweet;
-use App\Services\UserService;
 use Livewire\Component;
+use App\Services\UserService;
+use Modules\Tweets\app\Models\Tweet;
+use Modules\Categories\app\Models\Category;
+use Modules\Tweets\app\Http\Requests\TweetRequest;
 
 class CreateTweet extends Component
 {

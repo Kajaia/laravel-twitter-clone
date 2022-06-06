@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
-use App\Models\Follower;
-use App\Models\Tweet;
 use Livewire\Component;
+use Modules\Categories\app\Models\Category;
+use Modules\Followers\app\Models\Follower;
+use Modules\Tweets\app\Models\Tweet;
 
 class TweetFeed extends Component
 {

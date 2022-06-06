@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Tweet;
-use App\Services\TweetService;
 use Livewire\Component;
+use App\Services\UserService;
+use Modules\Tweets\app\Models\Tweet;
+use Modules\Likes\app\Services\LikeService;
+use Modules\Favourites\app\Services\FavouriteService;
+use Modules\Tweets\app\Services\TweetService;
 
 class TweetList extends Component
 {
@@ -42,7 +45,7 @@ class TweetList extends Component
         $this->emit('deleteReply');
     }
 
-    public function storeReply(TweetService $service) 
+    public function storeReply(TweetService $service, UserService $user) 
     {
         $this->validate();
 
@@ -53,7 +56,7 @@ class TweetList extends Component
             'user_id' => auth()->user()->id
         ]);
 
-        if(!$service->isAuthor($this->tweet->user->id)) {
+        if(!$user->isAuthor($this->tweet->user->id)) {
             $service->replyOnTweetNotification($this->tweet);
         }
 
@@ -62,7 +65,7 @@ class TweetList extends Component
         $this->reset('content');
     }
 
-    public function likeTweet(TweetService $service) 
+    public function likeTweet(LikeService $service) 
     {
         $service->likeUnlikeTweet($this->tweet);
 
@@ -71,7 +74,7 @@ class TweetList extends Component
         $this->emit('likeTweet');
     }
 
-    public function addToFavourites(TweetService $service) 
+    public function addToFavourites(FavouriteService $service) 
     {
         $service->addFavourites($this->tweet);
 

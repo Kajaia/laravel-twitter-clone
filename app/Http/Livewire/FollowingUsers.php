@@ -3,8 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use App\Services\UserService;
 use Livewire\Component;
+use Modules\Followers\app\Services\FollowerService;
 
 class FollowingUsers extends Component
 {
@@ -16,7 +16,7 @@ class FollowingUsers extends Component
         'userFollow' => '$refresh'
     ];
 
-    public function followUserList(UserService $service, User $user) 
+    public function followUserList(FollowerService $service, User $user) 
     {
         $service->followUser($user);
 
