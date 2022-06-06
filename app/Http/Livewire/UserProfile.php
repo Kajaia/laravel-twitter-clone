@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\UserService;
 use Livewire\Component;
+use Modules\Followers\app\Services\FollowerService;
 
 class UserProfile extends Component
 {
@@ -15,7 +15,7 @@ class UserProfile extends Component
         'followUserList' => '$refresh'
     ];
 
-    public function profileUserFollow(UserService $service) 
+    public function profileUserFollow(FollowerService $service) 
     {
         $service->followUser($this->user);
 

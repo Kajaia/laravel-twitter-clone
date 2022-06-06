@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Modules\Followers\database\seeders;
 
-use App\Models\Follower;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Followers\app\Models\Follower;
 
 class FollowerSeeder extends Seeder
 {

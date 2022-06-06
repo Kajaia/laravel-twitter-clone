@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Modules\Categories\database\seeders\CategorySeeder;
 use Modules\Favourites\database\seeders\FavouriteSeeder;
+use Modules\Followers\database\seeders\FollowerSeeder;
 use Modules\Likes\database\seeders\LikeSeeder;
 
 class DatabaseSeeder extends Seeder

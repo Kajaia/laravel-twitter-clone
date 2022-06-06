@@ -4,6 +4,7 @@ namespace Modules\Likes\app\Services;
 
 use App\Models\Tweet;
 use App\Notifications\UserNotification;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Modules\Likes\app\Models\Like;
@@ -12,10 +13,12 @@ class LikeService
 {
 
     protected Request $request;
+    protected UserService $user;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, UserService $user)
     {
         $this->request = $request;
+        $this->user = $user;
     }
 
     // Check if tweet is liked by this user
@@ -53,12 +56,6 @@ class LikeService
         return response()->json($unlike);
     }
 
-    // Check if provided user is author of this tweet
-    public function isAuthor($userId) 
-    {
-        return $userId === auth()->user()->id;
-    }
-
     // Like or dislike a tweet
     public function likeUnlikeTweet(Tweet $tweet)
     {
@@ -68,7 +65,7 @@ class LikeService
                 'user_id' => auth()->user()->id
             ]);
 
-            if(!$this->isAuthor($tweet->user_id)) {
+            if(!$this->user->isAuthor($tweet->user_id)) {
                 $this->likeTweetNotification($tweet, 'liked');
             }
         } else {
@@ -76,7 +73,7 @@ class LikeService
                 ->where('user_id', auth()->user()->id)
                 ->delete();
 
-            if(!$this->isAuthor($tweet->user_id)) {
+            if(!$this->user->isAuthor($tweet->user_id)) {
                 $this->likeTweetNotification($tweet, 'unliked');
             }
         }

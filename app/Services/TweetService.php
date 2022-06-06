@@ -56,12 +56,6 @@ class TweetService {
         return $reply;
     }
 
-    // Check if provided user is author of this tweet
-    public function isAuthor($userId) 
-    {
-        return $userId === auth()->user()->id;
-    }
-
     // Send notification to a tweet author that someone replied on his/her tweet
     public function replyOnTweetNotification(Tweet $tweet)
     {

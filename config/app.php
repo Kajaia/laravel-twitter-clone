@@ -170,6 +170,7 @@ return [
         Modules\Categories\app\Providers\AppServiceProvider::class,
         Modules\Favourites\app\Providers\AppServiceProvider::class,
         Modules\Likes\app\Providers\AppServiceProvider::class,
+        Modules\Followers\app\Providers\AppServiceProvider::class,
 
         /*
          * Application Service Providers...

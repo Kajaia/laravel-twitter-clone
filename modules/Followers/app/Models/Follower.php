@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Followers\app\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Followers\database\factories\FollowerFactory;
 
 class Follower extends Model
 {
@@ -20,5 +22,10 @@ class Follower extends Model
 
     public function following() {
         return $this->belongsTo(User::class, 'followed_id');
+    }
+
+    protected static function newFactory()
+    {
+        return FollowerFactory::new();
     }
 }
