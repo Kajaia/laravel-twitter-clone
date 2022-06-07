@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,19 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Auth routes
-Auth::routes(['reset' => false]);
-
+// Authenticated user routes
 Route::middleware('auth')->group(function() {
-    // Email verification routes
-    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
-        ->middleware('signed')
-        ->name('verification.verify');
-    Route::view('/email/verify', 'auth.verify')->name('verification.notice');
-    Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])
-        ->middleware('throttle:6,1')
-        ->name('verification.resend');
-
     // Homepage route
     Route::view('/', 'index')->middleware('verified')->name('homepage');
 
@@ -37,7 +24,8 @@ Route::middleware('auth')->group(function() {
         ->name('update.profile');
 });
 
-// Profile route
+// Email verified user or guest routes
 Route::middleware('verified-or-guest')->group(function() {
+    // Profile route
     Route::get('/{slug}', [UserController::class, 'profile'])->name('profile');
 });

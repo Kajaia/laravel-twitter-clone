@@ -167,6 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
+        Modules\Auth\app\Providers\AppServiceProvider::class,
+        Modules\Auth\app\Providers\RouteServiceProvider::class,
         Modules\Categories\app\Providers\AppServiceProvider::class,
         Modules\Favourites\app\Providers\AppServiceProvider::class,
         Modules\Likes\app\Providers\AppServiceProvider::class,
