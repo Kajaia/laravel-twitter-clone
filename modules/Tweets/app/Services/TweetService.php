@@ -32,9 +32,7 @@ class TweetService {
     // Get specific user tweet by id
     public function getUserTweet($tweet_id) 
     {
-        return Tweet::where('id', $tweet_id)
-            ->where('user_id', $this->request->user()->id)
-            ->first();
+        return Tweet::where('id', $tweet_id)->first();
     }
 
     // Get specific tweet replies

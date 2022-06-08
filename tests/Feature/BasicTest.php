@@ -42,7 +42,7 @@ class BasicTest extends TestCase
     {
         $user = User::findOrFail(1);
 
-        $response = $this->post("/{$user->slug}/update");
+        $response = $this->actingAs($user)->post("/{$user->slug}/update");
 
         $response->assertStatus(302);
     }

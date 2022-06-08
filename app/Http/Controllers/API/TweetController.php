@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Followers\app\Models\Follower;
 use Modules\Likes\app\Services\LikeService;
 use Modules\Tweets\app\Http\Requests\TweetRequest;
 use Modules\Tweets\app\Http\Resources\TweetResource;
@@ -21,10 +22,17 @@ class TweetController extends Controller
         $this->service = $service;
     }
 
-    // View user tweets
+    // View user tweet feed
     public function tweets()
     {
-        return TweetResource::collection(Tweet::where('user_id', $this->request->user()->id)->cursorPaginate());
+        return TweetResource::collection(
+            Tweet::whereIn('user_id', [
+                ...Follower::where('follower_id', $this->request->user()->id)
+                    ->pluck('followed_id')
+                    ->toArray(), 
+                $this->request->user()->id
+                ])->cursorPaginate()
+        );
     }
 
     // Make a tweet
