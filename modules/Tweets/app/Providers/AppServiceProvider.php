@@ -18,10 +18,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'tweet');
-
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
     }
 
 }

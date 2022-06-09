@@ -26,7 +26,6 @@ class UserLikesFeed extends Component
     {
         return Tweet::with([
                 'user',
-                'category',
                 'likes',
                 'replies',
                 'favourites'

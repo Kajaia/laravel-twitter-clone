@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TweetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,9 @@ Route::middleware('auth')->group(function() {
 Route::middleware('verified-or-guest')->group(function() {
     // Profile route
     Route::get('/{slug}', [UserController::class, 'profile'])->name('profile');
+
+    // Get specific tweet
+    Route::get('/tweet/{id}', TweetController::class)
+        ->whereNumber('id')
+        ->name('specific.tweet');
 });

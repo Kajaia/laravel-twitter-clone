@@ -5,7 +5,6 @@ namespace Modules\Tweets\app\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Categories\app\Models\Category;
 use Modules\Favourites\app\Models\Favourite;
 use Modules\Likes\app\Models\Like;
 use Modules\Tweets\database\factories\TweetFactory;
@@ -39,10 +38,6 @@ class Tweet extends Model
 
     public function favourites() {
         return $this->hasMany(Favourite::class);
-    }
-
-    public function category() {
-        return $this->belongsTo(Category::class);
     }
 
     public function getContentAttribute($value) {

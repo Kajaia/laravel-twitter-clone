@@ -4,8 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Services\UserService;
+use Modules\Categories\app\Services\CategoryService;
 use Modules\Tweets\app\Models\Tweet;
-use Modules\Categories\app\Models\Category;
 use Modules\Tweets\app\Http\Requests\TweetRequest;
 
 class CreateTweet extends Component
@@ -46,18 +46,16 @@ class CreateTweet extends Component
         $this->emit('createTweet');
     }
 
-    public function removeCategory($id) 
+    public function removeCategory(CategoryService $category, $id) 
     {
-        Category::findOrFail($id)->delete();
+        $category->getCategoryById($id)->delete();
 
         $this->emit('deleteCategory');
     }
 
-    public function getCategoriesProperty()
+    public function getCategoriesProperty(CategoryService $category)
     {
-        return Category::where('user_id', auth()->user()->id)
-            ->orderBy('id', 'asc')
-            ->get();
+        return $category->getCategoriesByUser(auth()->user()->id);
     }
 
     public function render()

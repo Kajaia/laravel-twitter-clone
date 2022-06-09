@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Modules\Categories\app\Models\Category;
+use Modules\Categories\app\Services\CategoryService;
 use Modules\Followers\app\Models\Follower;
 use Modules\Tweets\app\Models\Tweet;
 
@@ -39,27 +39,40 @@ class TweetFeed extends Component
         $this->perPage += 10;
     }
 
-    public function getCategoriesProperty()
+    public function getCategoriesProperty(CategoryService $category)
     {
-        return Category::where('user_id', auth()->user()->id ?? null)
-            ->orderBy('title', 'asc')
-            ->get();
+        if($this->feed) {
+            return $category->getCategoriesByUser(auth()->user()->id ?? null);
+        } else {
+            return $category->getCategoriesByUser($this->userId);
+        }
     }
 
-    public function getTweetsProperty()
+    public function getTweetsProperty(CategoryService $category)
     {
-        return Tweet::with([
-                'user',
-                'category',
-                'likes',
-                'favourites'
-            ])
-                ->whereIn('user_id', [...$this->ids, $this->userId])
-                ->when($this->category_id, function($query) {
-                    $query->where('category_id', $this->category_id);
-                })
-                ->orderBy('created_at', 'desc')
-                ->cursorPaginate($this->perPage);
+        $tweets = Tweet::with([
+            'user',
+            'likes',
+            'favourites'
+        ])
+            ->whereIn('user_id', [...$this->ids, $this->userId])
+            ->when($this->category_id, function($query) {
+                $query->where('category_id', $this->category_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->cursorPaginate($this->perPage);
+
+        $tweetCategoryIds = $tweets->pluck('category_id')->toArray();
+
+        $tweetCategories = $category->getCategoriesByIds($tweetCategoryIds);
+
+        $tweets->transform(function($tweet) use ($tweetCategories) {
+            $tweet['category'] = $tweetCategories->firstWhere('id', $tweet['category_id']);
+
+            return $tweet;
+        });
+
+        return $tweets;
     }
 
     public function getTweetsCountProperty()

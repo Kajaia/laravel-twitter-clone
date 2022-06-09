@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Modules\Categories\app\Models\Category;
 use Modules\Favourites\app\Models\Favourite;
 use Modules\Followers\app\Models\Follower;
 use Modules\Likes\app\Models\Like;
@@ -75,10 +74,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function favourites() {
         return $this->hasMany(Favourite::class);
-    }
-
-    public function categories() {
-        return $this->hasMany(Category::class);
     }
 
     public function getBioAttribute($value) {

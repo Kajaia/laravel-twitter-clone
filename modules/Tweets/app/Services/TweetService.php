@@ -60,4 +60,9 @@ class TweetService {
         Notification::send($tweet->user, new UserNotification(auth()->user(), auth()->user()->name.' replied to your tweet.', $tweet->id));
     }
 
+    public function getTweetById($id)
+    {
+        return Tweet::findOrFail($id);
+    }
+
 }
