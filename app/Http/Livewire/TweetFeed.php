@@ -62,12 +62,8 @@ class TweetFeed extends Component
             ->orderBy('created_at', 'desc')
             ->cursorPaginate($this->perPage);
 
-        $tweetCategoryIds = $tweets->pluck('category_id')->toArray();
-
-        $tweetCategories = $category->getCategoriesByIds($tweetCategoryIds);
-
-        $tweets->transform(function($tweet) use ($tweetCategories) {
-            $tweet['category'] = $tweetCategories->firstWhere('id', $tweet['category_id']);
+        $tweets->transform(function($tweet) use ($category) {
+            $tweet['category'] = $category->getCategoryById($tweet['category_id']);
 
             return $tweet;
         });

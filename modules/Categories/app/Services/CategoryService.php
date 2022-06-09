@@ -9,7 +9,7 @@ class CategoryService
 
     public function getCategoryById($id)
     {
-        return Category::findOrFail($id);
+        return $id ? Category::findOrFail($id) : null;
     }
 
     public function getCategoriesByUser($userId)

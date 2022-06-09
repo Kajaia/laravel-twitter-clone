@@ -12,9 +12,7 @@ class TweetController extends Controller
     {
         $tweet = $tweetService->getTweetById($id);
 
-        if($tweet->category_id) {
-            $tweet['category'] = $category->getCategoryById($tweet->category_id);
-        }
+        $tweet['category'] = $category->getCategoryById($tweet->category_id);
 
         return view('tweet', ['tweet' => $tweet]);
     }
