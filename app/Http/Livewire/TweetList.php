@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Services\UserService;
+use Modules\Categories\app\Services\CategoryService;
 use Modules\Tweets\app\Models\Tweet;
 use Modules\Likes\app\Services\LikeService;
 use Modules\Favourites\app\Services\FavouriteService;
@@ -36,16 +37,18 @@ class TweetList extends Component
         $this->emit('deleteTweet');
     }
 
-    public function deleteReply($replyId) 
+    public function deleteReply(CategoryService $category, $replyId) 
     {
         Tweet::findOrFail($replyId)->delete();
 
         $this->tweet = $this->tweet->refresh();
 
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+
         $this->emit('deleteReply');
     }
 
-    public function storeReply(TweetService $service, UserService $user) 
+    public function storeReply(TweetService $service, UserService $user, CategoryService $category) 
     {
         $this->validate();
 
@@ -62,23 +65,29 @@ class TweetList extends Component
 
         $this->tweet = $this->tweet->refresh();
 
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+
         $this->reset('content');
     }
 
-    public function likeTweet(LikeService $service) 
+    public function likeTweet(LikeService $service, CategoryService $category) 
     {
         $service->likeUnlikeTweet($this->tweet);
 
         $this->tweet = $this->tweet->refresh();
 
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+
         $this->emit('likeTweet');
     }
 
-    public function addToFavourites(FavouriteService $service) 
+    public function addToFavourites(FavouriteService $service, CategoryService $category) 
     {
         $service->addFavourites($this->tweet);
 
         $this->tweet = $this->tweet->refresh();
+
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
 
         $this->emit('addToFavourites');
     }
