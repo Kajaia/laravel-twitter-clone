@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Modules\Categories\app\Services\CategoryService;
+use Modules\Favourites\app\Services\FavouriteService;
 use Modules\Followers\app\Models\Follower;
 use Modules\Tweets\app\Models\Tweet;
 
@@ -48,12 +49,14 @@ class TweetFeed extends Component
         }
     }
 
-    public function getTweetsProperty(CategoryService $category)
+    public function getTweetsProperty(
+        CategoryService $category, 
+        FavouriteService $favourite
+    )
     {
         $tweets = Tweet::with([
             'user',
-            'likes',
-            'favourites'
+            'likes'
         ])
             ->whereIn('user_id', [...$this->ids, $this->userId])
             ->when($this->category_id, function($query) {
@@ -62,8 +65,9 @@ class TweetFeed extends Component
             ->orderBy('created_at', 'desc')
             ->cursorPaginate($this->perPage);
 
-        $tweets->transform(function($tweet) use ($category) {
-            $tweet['category'] = $category->getCategoryById($tweet['category_id']);
+        $tweets->transform(function($tweet) use ($category, $favourite) {
+            $tweet['category'] = $category->getCategoryById($tweet->category_id);
+            $tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($tweet->id);
 
             return $tweet;
         });

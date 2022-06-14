@@ -37,18 +37,28 @@ class TweetList extends Component
         $this->emit('deleteTweet');
     }
 
-    public function deleteReply(CategoryService $category, $replyId) 
+    public function deleteReply(
+        CategoryService $category, 
+        FavouriteService $favourite, 
+        $replyId
+    ) 
     {
         Tweet::findOrFail($replyId)->delete();
 
         $this->tweet = $this->tweet->refresh();
 
-        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
+        $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
 
         $this->emit('deleteReply');
     }
 
-    public function storeReply(TweetService $service, UserService $user, CategoryService $category) 
+    public function storeReply(
+        TweetService $service, 
+        UserService $user, 
+        CategoryService $category, 
+        FavouriteService $favourite
+    ) 
     {
         $this->validate();
 
@@ -65,29 +75,40 @@ class TweetList extends Component
 
         $this->tweet = $this->tweet->refresh();
 
-        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
+        $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
 
         $this->reset('content');
     }
 
-    public function likeTweet(LikeService $service, CategoryService $category) 
+    public function likeTweet(
+        LikeService $service, 
+        CategoryService $category, 
+        FavouriteService $favourite
+    ) 
     {
         $service->likeUnlikeTweet($this->tweet);
 
         $this->tweet = $this->tweet->refresh();
 
-        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
+        $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
 
         $this->emit('likeTweet');
     }
 
-    public function addToFavourites(FavouriteService $service, CategoryService $category) 
+    public function addToFavourites(
+        FavouriteService $service, 
+        CategoryService $category, 
+        FavouriteService $favourite
+    ) 
     {
-        $service->addFavourites($this->tweet);
+        $service->addFavourites($this->tweet->id);
 
         $this->tweet = $this->tweet->refresh();
 
-        $this->tweet['category'] = $category->getCategoryById($this->tweet->id);
+        $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
+        $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
 
         $this->emit('addToFavourites');
     }
