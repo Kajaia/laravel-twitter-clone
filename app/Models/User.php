@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Followers\app\Models\Follower;
-use Modules\Likes\app\Models\Like;
 use Modules\Tweets\app\Models\Tweet;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
@@ -57,10 +56,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function replies() {
         return $this->hasMany(Tweet::class);
-    }
-
-    public function likes() {
-        return $this->hasMany(Like::class);
     }
 
     public function followers() {

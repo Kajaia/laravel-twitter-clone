@@ -40,6 +40,7 @@ class TweetList extends Component
     public function deleteReply(
         CategoryService $category, 
         FavouriteService $favourite, 
+        LikeService $like, 
         $replyId
     ) 
     {
@@ -49,6 +50,7 @@ class TweetList extends Component
 
         $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
         $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
+        $this->tweet['likes'] = $like->getLikeByTweetAndUser($this->tweet->id);
 
         $this->emit('deleteReply');
     }
@@ -57,7 +59,8 @@ class TweetList extends Component
         TweetService $service, 
         UserService $user, 
         CategoryService $category, 
-        FavouriteService $favourite
+        FavouriteService $favourite, 
+        LikeService $like
     ) 
     {
         $this->validate();
@@ -77,6 +80,7 @@ class TweetList extends Component
 
         $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
         $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
+        $this->tweet['likes'] = $like->getLikeByTweetAndUser($this->tweet->id);
 
         $this->reset('content');
     }
@@ -84,7 +88,8 @@ class TweetList extends Component
     public function likeTweet(
         LikeService $service, 
         CategoryService $category, 
-        FavouriteService $favourite
+        FavouriteService $favourite, 
+        LikeService $like
     ) 
     {
         $service->likeUnlikeTweet($this->tweet);
@@ -93,6 +98,7 @@ class TweetList extends Component
 
         $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
         $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
+        $this->tweet['likes'] = $like->getLikeByTweetAndUser($this->tweet->id);
 
         $this->emit('likeTweet');
     }
@@ -100,7 +106,8 @@ class TweetList extends Component
     public function addToFavourites(
         FavouriteService $service, 
         CategoryService $category, 
-        FavouriteService $favourite
+        FavouriteService $favourite, 
+        LikeService $like
     ) 
     {
         $service->addFavourites($this->tweet->id);
@@ -109,6 +116,7 @@ class TweetList extends Component
 
         $this->tweet['category'] = $category->getCategoryById($this->tweet->category_id);
         $this->tweet['favourites'] = $favourite->getFavouriteByTweetAndUser($this->tweet->id);
+        $this->tweet['likes'] = $like->getLikeByTweetAndUser($this->tweet->id);
 
         $this->emit('addToFavourites');
     }

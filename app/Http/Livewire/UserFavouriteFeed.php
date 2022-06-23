@@ -34,6 +34,7 @@ class UserFavouriteFeed extends Component
             'likes',
             'replies' 
         ])
+            ->whereIn('id', $favourite->getFavouriteByUser($this->userId))
             ->orderBy('created_at', 'desc')
             ->cursorPaginate($this->perPage);
 
@@ -47,9 +48,10 @@ class UserFavouriteFeed extends Component
         return $tweets;
     }
 
-    public function getTweetsCountProperty()
+    public function getTweetsCountProperty(FavouriteService $favourite)
     {
-        return Tweet::count();
+        return Tweet::whereIn('id', $favourite->getFavouriteByUser($this->userId))
+            ->count();
     }
 
     public function render()

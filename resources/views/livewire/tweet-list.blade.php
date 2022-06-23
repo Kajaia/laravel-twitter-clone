@@ -17,7 +17,7 @@
                     </a>
                     <small class="text-secondary">
                         {{ \Carbon\Carbon::parse($tweet->created_at)->diffForHumans() }} 
-                        @if($tweet->category_id)
+                        @if($tweet->category)
                         in {{ $tweet->category->title }}
                         @endif
                     </small>

@@ -33,6 +33,11 @@ class FavouriteService
         return Favourite::where('tweet_id', $tweetId)->get();
     }
 
+    public function getFavouriteByUser($userId)
+    {
+        return Favourite::where('user_id', $userId)->pluck('tweet_id')->toArray();
+    }
+
     public function getFavouriteByTweetAndUser($tweetId)
     {
         return Favourite::where([
