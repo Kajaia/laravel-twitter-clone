@@ -4,7 +4,7 @@ namespace Modules\Auth\app\Actions;
 
 use App\Models\User;
 use Illuminate\Support\Str;
-use Illuminate\Auth\Events\Registered;
+use App\Events\UserRegistered;
 use Modules\Auth\app\Http\Requests\RegisterRequest;
 
 class RegisterUserAction
@@ -19,7 +19,7 @@ class RegisterUserAction
             'slug' => Str::slug($request->name, '-')
         ]);
 
-        event(new Registered($user));
+        event(new UserRegistered($user));
 
         auth()->login($user);
     }

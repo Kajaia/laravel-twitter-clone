@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(new SendAggregatedInformation)->weekly();
         $schedule->call(new NewTweetsReminder)->dailyAt('10:00');
+        $schedule->command('queue:work --stop-when-empty')->everyMinute();
     }
 
     /**
