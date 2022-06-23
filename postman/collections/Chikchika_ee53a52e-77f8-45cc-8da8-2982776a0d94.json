@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "6f6a71e8-5526-4429-a391-be83906e96e9",
+		"name": "Chikchika",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Current user details",
+			"id": "12d93c2a-9951-4179-8c40-e9d2d896fb99",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/me",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Following users list",
+			"id": "25fffa8a-1f53-41ce-9275-2e105f363738",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/me/following",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"me",
+						"following"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Followers list",
+			"id": "ee28e85e-aece-41d7-a920-1027c7121693",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/me/follows",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"me",
+						"follows"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tweets list",
+			"id": "fb3233dd-3090-4816-b921-8d870c9b2ea2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tweets",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make a tweet",
+			"id": "b103566d-ca7e-4e7a-b966-5ace5e93a962",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "content",
+							"value": "Lorem ipsum dolor, sit amet...",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "101",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/tweets",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single tweet",
+			"id": "efda727f-3ada-4538-991a-a77b8a6f6de8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tweets/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tweet replies",
+			"id": "e4aa14c3-b705-43e8-bd57-3e18c2868e1f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tweets/1/replies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets",
+						"1",
+						"replies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like tweet",
+			"id": "ca3734e5-c281-4daa-aade-3a2e43a631f3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tweets/1/like",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets",
+						"1",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unlike tweet",
+			"id": "1870d656-adf2-4960-82e6-f66cfa8d8210",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/tweets/1/unlike",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets",
+						"1",
+						"unlike"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reply on a tweet",
+			"id": "f5af3010-f72f-4aa8-b4e2-cd038f90e074",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "content",
+							"value": "Lorem ipsum",
+							"type": "text"
+						},
+						{
+							"key": "tweet_id",
+							"value": "201",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/tweets/1/reply",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tweets",
+						"1",
+						"reply"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "9|P4BKGO7cPfA9BpGCpTer6ShaHHg78vSARBPmjYzn",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2cd76488-0e97-4dc3-aa4a-ff8de619523f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8f53f208-16ec-4360-a2bf-0f62f2b5b517",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
